@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connexion — Chasseur de tête</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+</head>
+<body class="auth-body">
+
+  <div class="auth-card glass">
+    <div class="auth-header">
+      <a href="index.html" class="logo"><i>CHASSEUR DE TÊTE</i></a>
+      <h1>Bon retour !</h1>
+      <p>Accédez à votre espace professionnel</p>
+    </div>
+
+    <form id="loginForm">
+      <div class="form-floating">
+        <label class="form-label" for="email">Email ou Téléphone</label>
+        <input class="form-input" id="email" type="email" placeholder="vous@exemple.com" autocomplete="email" required />
+      </div>
+
+      <div class="form-floating">
+        <label class="form-label" for="password">Mot de passe</label>
+        <div style="position: relative;">
+          <input class="form-input" id="password" type="password" placeholder="••••••••" autocomplete="current-password" required />
+          <span id="eye" onclick="togglePassword()" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 18px; opacity: 0.6;">👁️</span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg w-100" id="submitBtn" style="margin-top: 10px; width: 100%;">
+        Se connecter
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Pas encore de compte ? <a href="register.html">Créer un compte</a></p>
+      <div class="mt-4 pt-3" style="border-top: 1px solid rgba(0,0,0,0.05);">
+        <p class="text-xs text-muted">Test : <b>liva@gmail.com</b> / <b>password123</b></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+  <script>
+    if (HH.auth.isLogged()) {
+      const role = HH.auth.getUser()?.role;
+      const map = { candidat: 'dashboard-candidat.html', recruteur: 'dashboard-recruteur.html', entreprise: 'dashboard-entreprise.html', admin: 'dashboard-admin.html' };
+      window.location.href = map[role] || 'index.html';
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      HH.clearErrors();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true; btn.textContent = 'Connexion…';
+
+      try {
+        const data = await HH.api('/auth/login', {
+          method: 'POST',
+          body: JSON.stringify({ email, mot_de_passe: password }),
+        });
+        HH.auth.setSession(data);
+        HH.Toast.success(`Ravi de vous revoir, ${data.user.prenom} !`);
+        const map = { candidat: 'dashboard-candidat.html', recruteur: 'dashboard-recruteur.html', entreprise: 'dashboard-entreprise.html', admin: 'dashboard-admin.html' };
+        setTimeout(() => window.location.href = map[data.user.role] || 'index.html', 800);
+      } catch (err) {
+        HH.Toast.error(err.message);
+        btn.disabled = false; btn.textContent = 'Se connecter';
+      }
+    });
+
+    function togglePassword() {
+      const p = document.getElementById("password");
+      const e = document.getElementById("eye");
+      if (p.type === "password") { p.type = "text"; e.textContent = "🙈"; }
+      else { p.type = "password"; e.textContent = "👁️"; }
+    }
+  </script>
+</body>
+</html>

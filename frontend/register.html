@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inscription — Chasseur de tête</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+</head>
+<body class="auth-body">
+
+  <div class="auth-card glass" style="max-width: 500px;">
+    <div class="auth-header">
+      <a href="index.html" class="logo"><i>CHASSEUR DE TÊTE</i></a>
+      <h1>Créer un compte</h1>
+      <p id="sub-msg">Choisissez votre profil pour commencer</p>
+    </div>
+
+    <!-- Sélection rôle -->
+    <div class="role-grid" id="roleGrid">
+      <div class="role-btn active" data-role="candidat">
+        <div class="role-label">CANDIDAT</div>
+        <div class="role-desc">Postulez aux meilleures offres</div>
+      </div>
+      <div class="role-btn" data-role="entreprise">
+        <div class="role-label">ENTREPRISE</div>
+        <div class="role-desc">Recrutez des talents d'élite</div>
+      </div>
+    </div>
+
+    <form id="registerForm" style="display:none;">
+      <div class="grid-2" id="nameFields" style="gap:16px">
+        <div class="form-floating">
+          <label class="form-label">Prénom</label>
+          <input class="form-input" id="prenom" type="text" placeholder="Marie" />
+        </div>
+        <div class="form-floating">
+          <label class="form-label">Nom</label>
+          <input class="form-input" id="nom" type="text" placeholder="RAKOTO" />
+        </div>
+      </div>
+
+      <div class="form-floating" id="companyField" style="display:none;">
+        <label class="form-label">Nom de l'entreprise</label>
+        <input class="form-input" id="company" type="text" placeholder="Votre société" />
+      </div>
+
+      <div class="grid-2" id="enterpriseFields" style="display:none; gap:16px">
+        <div class="form-floating">
+          <label class="form-label">NIF</label>
+          <input class="form-input" id="nif" type="text" placeholder="NIF" />
+        </div>
+        <div class="form-floating">
+          <label class="form-label">STAT</label>
+          <input class="form-input" id="stat" type="text" placeholder="STAT" />
+        </div>
+      </div>
+
+      <div class="form-floating">
+        <label class="form-label">Email professionnel</label>
+        <input class="form-input" id="email" type="email" placeholder="nom@domaine.com" required />
+      </div>
+
+      <div class="grid-2" style="gap:16px">
+        <div class="form-floating">
+          <label class="form-label">Mot de passe</label>
+          <input class="form-input" id="password" type="password" placeholder="••••••••" required />
+        </div>
+        <div class="form-floating">
+          <label class="form-label">Confirmer</label>
+          <input class="form-input" id="confirm" type="password" placeholder="••••••••" required />
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg w-100" id="submitBtn" style="width:100%; margin-top: 10px;">
+        Finaliser l'inscription
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Déjà un compte ? <a href="login.html">Se connecter</a></p>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+  <script>
+    let selectedRole = 'candidat';
+    const validRoles = ['candidat', 'entreprise', 'admin'];
+    const urlRole = new URLSearchParams(window.location.search).get('role');
+    if (urlRole && validRoles.includes(urlRole)) { selectedRole = urlRole; }
+
+    const registerForm = document.getElementById('registerForm');
+    const roleGrid = document.getElementById('roleGrid');
+    const nameFields = document.getElementById('nameFields');
+    const companyField = document.getElementById('companyField');
+    const enterpriseFields = document.getElementById('enterpriseFields');
+    const subMsg = document.getElementById('sub-msg');
+
+    function showForm() {
+      registerForm.style.display = 'block';
+      if (selectedRole === 'entreprise') {
+        nameFields.style.display = 'none';
+        companyField.style.display = 'block';
+        enterpriseFields.style.display = 'grid';
+        subMsg.textContent = 'Inscrivez votre entreprise';
+      } else if (selectedRole === 'admin') {
+        nameFields.style.display = 'none';
+        companyField.style.display = 'none';
+        enterpriseFields.style.display = 'none';
+        subMsg.textContent = 'Identifiants administrateur';
+      } else {
+        nameFields.style.display = 'grid';
+        companyField.style.display = 'none';
+        enterpriseFields.style.display = 'none';
+        subMsg.textContent = 'Complétez vos informations personnelles';
+      }
+    }
+
+    roleGrid.addEventListener('click', (e) => {
+      const btn = e.target.closest('.role-btn');
+      if (!btn) return;
+      selectedRole = btn.dataset.role;
+      document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      showForm();
+    });
+
+    // Default show
+    document.querySelectorAll('.role-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.role === selectedRole);
+    });
+    showForm();
+
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      HH.clearErrors();
+      const body = {
+        email: document.getElementById('email').value,
+        mot_de_passe: document.getElementById('password').value,
+        role: selectedRole
+      };
+      
+      const confirm = document.getElementById('confirm').value;
+      if (body.mot_de_passe !== confirm) { HH.Toast.error('Les mots de passe ne correspondent pas.'); return; }
+
+      if (selectedRole === 'entreprise') {
+        body.nom_entreprise = document.getElementById('company').value;
+        body.nif = document.getElementById('nif').value;
+        body.stat = document.getElementById('stat').value;
+      } else if (selectedRole !== 'admin') {
+        body.prenom = document.getElementById('prenom').value;
+        body.nom = document.getElementById('nom').value;
+      }
+
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true; btn.textContent = 'Création…';
+
+      try {
+        const data = await HH.api('/auth/register', { method: 'POST', body: JSON.stringify(body) });
+        HH.auth.setSession(data);
+        HH.Toast.success('Bienvenue chez HeadHunter !');
+        const map = { candidat: 'dashboard-candidat.html', entreprise: 'dashboard-entreprise.html', admin: 'dashboard-admin.html' };
+        setTimeout(() => window.location.href = map[data.user.role] || 'index.html', 800);
+      } catch (err) {
+        HH.Toast.error(err.message);
+        btn.disabled = false; btn.textContent = 'Finaliser l\'inscription';
+      }
+    });
+  </script>
+</body>
+</html>

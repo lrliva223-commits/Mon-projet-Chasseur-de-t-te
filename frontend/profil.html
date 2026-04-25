@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mon profil — Chasseur de tête</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+</head>
+<body class="dashboard-candidate">
+
+  <!-- ════════ SIDEBAR ════════ -->
+  <aside class="sidebar-candidate">
+    <div class="logo-area" style="display:flex;flex-direction:column;gap:16px;align-items:center;padding-bottom:20px;border-bottom:1px solid #f1f5f9;margin-bottom:20px">
+      <div id="sideAvatar" class="avatar" style="width:80px;height:80px;font-size:24px;border:3px solid #f0fdf4">
+        —
+      </div>
+      <div style="text-align:center">
+        <a href="index.html" class="logo" style="font-size: 16px;display:block"><i>CHASSEUR DE TÊTE</i></a>
+        <span class="text-xs text-muted">Candidat</span>
+      </div>
+    </div>
+    
+    <nav class="nav-group">
+      <a href="dashboard-candidat.html" class="nav-item">
+        <svg xmlns="http://www.w3.org/2003/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+        <span>Tableau de bord</span>
+      </a>
+      <a href="offres.html" class="nav-item">
+        <svg xmlns="http://www.w3.org/2003/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+        <span>Offres d'emploi</span>
+      </a>
+      <a href="messagerie.html" class="nav-item">
+        <svg xmlns="http://www.w3.org/2003/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+        </svg>
+        <span>Messagerie</span>
+      </a>
+      <a href="profil.html" class="nav-item active">
+        <svg xmlns="http://www.w3.org/2003/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+        <span>Mon profil</span>
+      </a>
+    </nav>
+
+    <div style="margin-top: auto;">
+      <a href="#" class="nav-item" onclick="logout()">
+        <svg xmlns="http://www.w3.org/2003/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+        </svg>
+        <span>Déconnexion</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ════════ MAIN CONTENT ════════ -->
+  <main class="admin-main">
+    <header class="admin-header">
+      <div>
+        <h1>Mon Profil Professionnel</h1>
+        <p class="text-muted">Valorisez votre parcours pour attirer les recruteurs</p>
+      </div>
+    </header>
+
+    <div class="grid-2" style="align-items:start">
+      <!-- Formulaire -->
+      <div class="admin-card">
+        <h2 class="card-title">Informations professionnelles</h2>
+        <form id="profilForm" style="display:grid; gap:20px">
+          <div class="form-floating">
+            <label class="form-label">Titre du poste recherché</label>
+            <input class="form-input" id="titre_poste" type="text" placeholder="ex : Développeur Frontend React Senior" />
+          </div>
+          <div class="form-floating">
+            <label class="form-label">Résumé professionnel</label>
+            <textarea class="form-input" id="resume" rows="5" placeholder="Présentez votre parcours, vos points forts…"></textarea>
+          </div>
+          <div class="grid-2" style="gap:20px">
+            <div class="form-floating">
+              <label class="form-label">Disponibilité</label>
+              <select class="form-input" id="disponibilite">
+                <option value="">Sélectionner</option>
+                <option>Immédiate</option><option>1 mois</option><option>2 mois</option><option>3 mois et +</option>
+              </select>
+            </div>
+            <div class="form-floating">
+              <label class="form-label">Salaire souhaité (MGA/an)</label>
+              <input class="form-input" id="salaire_min" type="number" placeholder="ex : 45" />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" id="saveBtn" style="justify-self: start;">Enregistrer les modifications</button>
+        </form>
+      </div>
+
+      <!-- CV & Photo -->
+      <div class="flex flex-col gap-4">
+        <div class="admin-card">
+          <h2 class="card-title">Photo de profil</h2>
+          <div class="flex items-center gap-5">
+            <div id="avatarDisplay" class="avatar" style="width:100px; height:100px; font-size:32px; border:4px solid #f8fafc">
+              —
+            </div>
+            <div>
+              <label class="btn btn-outline btn-sm" style="cursor:pointer">
+                Changer la photo
+                <input type="file" id="avatarFile" accept="image/*" style="display:none" onchange="uploadAvatar(this)" />
+              </label>
+              <p class="text-xs text-muted mt-2">Format JPG ou PNG (max 2 Mo)</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <h2 class="card-title">Curriculum Vitae</h2>
+          <div id="cvStatus" class="mb-3 text-sm text-muted">Chargement de votre CV actuel...</div>
+          <label class="form-group" style="cursor:pointer">
+            <div id="uploadZone" class="glass" style="border:2px dashed #e2e8f0; border-radius:12px; padding:32px; text-align:center; transition:all 0.3s">
+              <div style="font-size:24px; margin-bottom:12px">📄</div>
+              <p class="text-sm font-medium">Glissez votre CV ici ou cliquez</p>
+              <p class="text-xs text-muted mt-1">PDF, DOC (max 5 Mo)</p>
+            </div>
+            <input type="file" id="cvFile" accept=".pdf,.doc,.docx" style="display:none" onchange="uploadCV(this)" />
+          </label>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+  <script>
+    HH.requireAuth('candidat');
+
+    async function loadProfil() {
+      try {
+        const u = HH.auth.getUser();
+        const data = await HH.api('/candidats/profil');
+        const p = data.profil;
+        
+        if (p) {
+          document.getElementById('titre_poste').value = p.titre_poste || '';
+          document.getElementById('resume').value = p.resume || '';
+          document.getElementById('disponibilite').value = p.disponibilite || '';
+          document.getElementById('salaire_min').value = p.salaire_min || '';
+          
+          const av = document.getElementById('avatarDisplay');
+          const sideAv = document.getElementById('sideAvatar');
+          if (p.avatar_url) {
+            const img = `<img src="${p.avatar_url}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
+            av.innerHTML = img; sideAv.innerHTML = img;
+          } else {
+            const init = (u?.prenom?.[0]||'') + (u?.nom?.[0]||'');
+            av.textContent = init; sideAv.textContent = init;
+          }
+
+          document.getElementById('cvStatus').innerHTML = p.cv_url 
+            ? `<a href="${p.cv_url}" target="_blank" class="btn btn-outline btn-sm">Consulter mon CV actuel →</a>`
+            : 'Aucun CV n\'est encore enregistré.';
+        }
+      } catch (err) { console.error(err); }
+    }
+
+    document.getElementById('profilForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('saveBtn');
+      btn.disabled = true; btn.textContent = 'Enregistrement…';
+      try {
+        await HH.api('/candidats/profil', {
+          method: 'PUT',
+          body: JSON.stringify({
+            titre_poste: document.getElementById('titre_poste').value,
+            resume: document.getElementById('resume').value,
+            disponibilite: document.getElementById('disponibilite').value,
+            salaire_min: parseInt(document.getElementById('salaire_min').value) || null,
+          }),
+        });
+        HH.Toast.success('Profil mis à jour !');
+      } catch (err) { HH.Toast.error(err.message); }
+      finally { btn.disabled = false; btn.textContent = 'Enregistrer les modifications'; }
+    });
+
+    async function uploadCV(input) {
+      const file = input.files[0];
+      if (!file) return;
+      const formData = new FormData();
+      formData.append('cv', file);
+      const zone = document.getElementById('uploadZone');
+      zone.innerHTML = '<p class="text-sm">Téléchargement en cours...</p>';
+      try {
+        const token = HH.auth.getToken();
+        const res = await fetch('http://localhost:5000/api/v1/candidats/upload-cv', {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${token}` },
+          body: formData,
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+        HH.Toast.success('CV mis à jour !');
+        loadProfil();
+        zone.innerHTML = '<p class="text-sm" style="color:#059669">CV uploadé avec succès ✓</p>';
+      } catch (err) {
+        HH.Toast.error(err.message);
+        zone.innerHTML = '<div style="font-size:24px; margin-bottom:12px">📄</div><p class="text-sm font-medium">Glissez votre CV ici ou cliquez</p>';
+      }
+    }
+
+    async function uploadAvatar(input) {
+      const file = input.files[0];
+      if (!file) return;
+      const formData = new FormData();
+      formData.append('avatar', file);
+      try {
+        const token = HH.auth.getToken();
+        const res = await fetch('http://localhost:5000/api/v1/candidats/upload-avatar', {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${token}` },
+          body: formData,
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+        HH.Toast.success('Photo mise à jour !');
+        loadProfil();
+      } catch (err) { HH.Toast.error(err.message); }
+    }
+
+    function logout() { HH.auth.clear(); window.location.href = 'index.html'; }
+
+    loadProfil();
+  </script>
+</body>
+</html>

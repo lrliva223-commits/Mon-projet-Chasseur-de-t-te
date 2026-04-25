@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Espace entreprise — Chasseur de tête</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+</head>
+
+<body class="dashboard-entreprise">
+
+  <!-- ════════ SIDEBAR ════════ -->
+  <aside class="sidebar-entreprise">
+    <div class="logo-area">
+      <a href="index.html" class="logo" style="font-size: 18px;"><i>CHASSEUR DE TÊTE</i></a>
+    </div>
+
+    <nav class="nav-group">
+      <a href="#" class="nav-item active" id="nav-overview" onclick="showTab('overview')">
+        <svg xmlns="http://www.w3.org/2003/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20"
+          height="20">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+        <span>Tableau de bord</span>
+      </a>
+      <a href="#" class="nav-item" id="nav-offres" onclick="showTab('offres')">
+        <svg xmlns="http://www.w3.org/2003/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20"
+          height="20">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+        <span>Mes offres</span>
+      </a>
+      <a href="#" class="nav-item" id="nav-candidatures" onclick="showTab('candidatures')">
+        <svg xmlns="http://www.w3.org/2003/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20"
+          height="20">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01m-.01 4h.01" />
+        </svg>
+        <span>Candidatures</span>
+      </a>
+      <a href="#" class="nav-item" id="nav-profil" onclick="showTab('profil')">
+        <svg xmlns="http://www.w3.org/2003/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20"
+          height="20">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-7h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        </svg>
+        <span>Profil entreprise</span>
+      </a>
+      <a href="#" class="nav-item" id="nav-messages" onclick="showTab('messages')">
+        <svg xmlns="http://www.w3.org/2003/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20"
+          height="20">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+        </svg>
+        <span>Messages</span>
+        <span id="unreadMessagesBadge" class="unread-badge"
+          style="display:none; margin-left:auto; font-size:10px; padding:2px 6px">0</span>
+      </a>
+    </nav>
+
+    <div style="margin-top: auto;">
+      <a href="#" class="nav-item" onclick="logout()">
+        <svg xmlns="http://www.w3.org/2003/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20"
+          height="20">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+        </svg>
+        <span>Déconnexion</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ════════ MAIN CONTENT ════════ -->
+  <main class="admin-main">
+
+    <header class="admin-header">
+      <div>
+        <h1 id="page-headline">Tableau de bord</h1>
+        <p class="text-muted" id="page-subheadline">Gérez vos recrutements et votre image de marque</p>
+      </div>
+      <div class="flex gap-3">
+        <button class="btn btn-outline" onclick="refreshDashboard()">Actualiser</button>
+      </div>
+    </header>
+
+    <!-- OVERVIEW -->
+    <div id="tab-overview">
+      <div class="admin-stats-grid">
+        <div class="admin-stat-card clickable" onclick="showTab('offres')">
+          <div class="admin-stat-info">
+            <h3>Offres publiées</h3>
+            <div class="value" id="offresCount">—</div>
+            <span class="stat-action">Voir mes offres →</span>
+          </div>
+          <div class="admin-stat-icon icon-blue">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="26" height="26">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+        </div>
+        <div class="admin-stat-card clickable" onclick="showTab('candidatures')">
+          <div class="admin-stat-info">
+            <h3>Candidatures reçues</h3>
+            <div class="value" id="candidaturesCount">—</div>
+            <span class="stat-action">Traiter les dossiers →</span>
+          </div>
+          <div class="admin-stat-icon icon-purple">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="26" height="26">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <div class="admin-table-header">
+          <h2>Dernières candidatures reçues</h2>
+          <button class="btn btn-primary btn-sm" onclick="showTab('candidatures')">Toutes les candidatures</button>
+        </div>
+        <div id="recentCandidatures">
+          <p class="empty-state">Chargement…</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- OFFRES -->
+    <div id="tab-offres" style="display:none">
+      <div class="admin-card mb-4">
+        <div class="admin-table-header">
+          <h2>Mes offres d'emploi</h2>
+          <button class="btn btn-primary" onclick="showOffreForm()">+ Créer une offre</button>
+        </div>
+
+        <div id="offreForm" class="glass"
+          style="display:none; padding: 24px; border-radius: 16px; margin-bottom: 24px;">
+          <h3 style="margin-bottom: 16px;">Nouvelle offre d'emploi</h3>
+          <form id="formOffre" onsubmit="submitOffre(event)" style="display:grid;gap:16px">
+            <input type="hidden" id="offreId" />
+            <div class="grid-2" style="gap:16px">
+              <div>
+                <label class="form-label">Titre du poste</label>
+                <input class="form-input" id="offreTitre" type="text" placeholder="Ex: Développeur Python" required />
+              </div>
+              <div>
+                <label class="form-label">Localisation</label>
+                <input class="form-input" id="offreLocalisation" type="text" placeholder="Paris, Remote..." />
+              </div>
+            </div>
+            <div>
+              <label class="form-label">Description du poste</label>
+              <textarea class="form-input" id="offreDesc" placeholder="Missions, profil recherché..."
+                style="min-height:120px" required></textarea>
+            </div>
+            <div class="grid-3" style="gap:16px">
+              <div>
+                <label class="form-label">Type de contrat</label>
+                <select class="form-input" id="offreType" required>
+                  <option>CDI</option>
+                  <option>CDD</option>
+                  <option>Freelance</option>
+                  <option>Stage</option>
+                  <option>Alternance</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-label">Salaire min (MGA)</label>
+                <input class="form-input" id="offreSalaireMin" type="number" placeholder="0" />
+              </div>
+              <div>
+                <label class="form-label">Salaire max (MGA)</label>
+                <input class="form-input" id="offreSalaireMax" type="number" placeholder="0" />
+              </div>
+            </div>
+            <div style="display:flex;gap:12px; margin-top: 8px;">
+              <button type="submit" class="btn btn-primary">Publier l'annonce</button>
+              <button type="button" class="btn btn-outline" onclick="hideOffreForm()">Annuler</button>
+            </div>
+          </form>
+        </div>
+
+        <div id="offresList">
+          <p class="empty-state">Chargement…</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CANDIDATURES -->
+    <div id="tab-candidatures" style="display:none">
+      <div class="admin-card">
+        <div class="admin-table-header">
+          <h2>Suivi des candidatures</h2>
+        </div>
+        <div id="candidaturesList">
+          <p class="empty-state">Chargement…</p>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- PROFIL -->
+    <div id="tab-profil" style="display:none">
+      <div class="admin-card" style="max-width: 800px;">
+        <div class="admin-table-header">
+          <h2>Identité de l'entreprise</h2>
+        </div>
+        <form id="formProfil" onsubmit="submitProfil(event)" style="display:grid;gap:20px">
+          <div class="grid-2" style="gap:20px">
+            <div>
+              <label class="form-label">Nom de l'entreprise</label>
+              <input class="form-input" id="profilNom" type="text" placeholder="Nom" required />
+            </div>
+            <div>
+              <label class="form-label">Secteur d'activité</label>
+              <input class="form-input" id="profilSecteur" type="text" placeholder="Ex: Technologie" />
+            </div>
+          </div>
+          <div>
+            <label class="form-label">Logo (URL)</label>
+            <input class="form-input" id="profilLogo" type="url" placeholder="https://..." />
+          </div>
+          <div class="grid-2" style="gap:20px">
+            <div>
+              <label class="form-label">Taille</label>
+              <select class="form-input" id="profilTaille">
+                <option>1-10</option>
+                <option>10-50</option>
+                <option>50-200</option>
+                <option>200+</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">Adresse</label>
+              <input class="form-input" id="profilAdresse" type="text" placeholder="Adresse complète" />
+            </div>
+          </div>
+          <div class="grid-2" style="gap:20px">
+            <div>
+              <label class="form-label">Téléphone</label>
+              <input class="form-input" id="profilTelephone" type="tel" placeholder="+261..." />
+            </div>
+            <div>
+              <label class="form-label">Email de contact</label>
+              <input class="form-input" id="profilEmail" type="email" placeholder="contact@..." />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="justify-self: start;">Mettre à jour le profil</button>
+        </form>
+      </div>
+    </div>
+
+
+    <!-- MESSAGES -->
+    <div id="tab-messages" style="display:none; padding: 0;">
+      <div class="messaging-container">
+        <!-- Sidebar Conversations -->
+        <div class="conversations-sidebar">
+          <div class="conv-list-header">Candidats contactés</div>
+          <div id="conversationsList" class="conversations-list-pro">
+            <p class="empty-state">Chargement...</p>
+          </div>
+        </div>
+
+        <!-- Chat Window -->
+        <div class="chat-window" id="chatWindow">
+          <div id="chatDefault" class="flex-center flex-column" style="height:100%; color:var(--gray-400)">
+            <svg width="64" height="64" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              style="opacity:0.2; margin-bottom:16px">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            <p>Sélectionnez une conversation pour voir les messages</p>
+          </div>
+
+          <div id="chatActive" style="display:none; flex-direction:column; height:100%;">
+            <div class="chat-header">
+              <div class="conv-avatar" id="activeChatAvatar">?</div>
+              <div class="conv-info">
+                <div class="conv-name" id="activeChatName">Chargement...</div>
+                <div class="conv-date" id="activeChatRole">Candidat</div>
+              </div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+              <!-- Messages load here -->
+            </div>
+
+            <div class="chat-input-area">
+              <div class="chat-input-wrapper">
+                <input type="text" id="chatInput" class="chat-input" placeholder="Écrivez votre message..."
+                  onkeydown="if(event.key==='Enter') sendChatMessage()">
+              </div>
+              <button class="btn btn-primary" onclick="sendChatMessage()">Envoyer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ════════ MODAL MESSAGE ════════ -->
+  <div id="messageModal" class="modal">
+    <div class="modal-overlay" onclick="closeMessageModal()"></div>
+
+    <div class="modal-content" style="width: 500px; padding: 32px;">
+      <div class="modal-header" style="margin-bottom: 24px; border:none; padding:0">
+        <h2 style="font-size: 20px; font-weight: 800;">Envoyer un message</h2>
+        <button class="modal-close" onclick="closeMessageModal()">✕</button>
+      </div>
+      <div class="modal-body" style="padding:0">
+        <p class="text-muted mb-4" id="messageDestName" style="font-size: 14px;"></p>
+        <div class="form-group mb-4">
+          <label class="form-label">Votre message</label>
+          <textarea id="messageText" class="form-input" rows="5" placeholder="Écrivez votre message ici..."
+            style="height: auto; padding: 12px;"></textarea>
+        </div>
+        <div class="modal-footer"
+          style="margin-top: 24px; border-top: 1px solid var(--gray-100); padding: 24px 0 0; background:none">
+          <button type="button" class="btn btn-outline" onclick="closeMessageModal()" style="flex:1">Annuler</button>
+          <button type="button" class="btn btn-primary" id="btnSendMessage" onclick="confirmSendMessage()"
+            style="flex:2">Envoyer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+  <script>
+    HH.requireAuth('entreprise');
+
+    function showTab(id) {
+      ['overview', 'offres', 'candidatures', 'profil', 'messages'].forEach(t => {
+        const el = document.getElementById('tab-' + t);
+        if (el) el.style.display = t === id ? 'block' : 'none';
+        const nav = document.getElementById('nav-' + t);
+        if (nav) nav.classList.toggle('active', t === id);
+      });
+
+      const headlines = {
+        overview: { title: 'Tableau de bord', sub: 'Gérez vos recrutements et votre image' },
+        offres: { title: 'Mes offres', sub: 'Publiez et modifiez vos annonces' },
+        candidatures: { title: 'Candidatures', sub: 'Suivez les talents qui postulent' },
+        profil: { title: 'Profil Entreprise', sub: 'Personnalisez votre fiche entreprise' },
+        messages: { title: 'Messages', sub: 'Discutez avec les candidats que vous avez contactés' }
+      };
+
+      document.getElementById('page-headline').textContent = headlines[id].title;
+      document.getElementById('page-subheadline').textContent = headlines[id].sub;
+
+      if (id === 'overview') loadOverview();
+      if (id === 'offres') loadOffres();
+      if (id === 'candidatures') loadCandidatures();
+      if (id === 'profil') loadProfil();
+      if (id === 'messages') loadMessages();
+    }
+
+    async function loadOverview() {
+      try {
+        const offres = await HH.api('/offres/mes');
+        document.getElementById('offresCount').textContent = offres.offres?.length || 0;
+
+        const candidatures = await HH.api('/candidatures/entreprise');
+        const cands = candidatures.candidatures || [];
+        document.getElementById('candidaturesCount').textContent = cands.length || 0;
+
+        document.getElementById('recentCandidatures').innerHTML = !cands.length
+          ? '<p class="empty-state">Aucune candidature pour le moment</p>'
+          : `
+            <table class="admin-table">
+              <thead><tr><th>Candidat</th><th>Offre</th><th>Statut</th></tr></thead>
+              <tbody>
+                ${cands.slice(0, 5).map(c => `
+                  <tr>
+                    <td><div class="font-medium">${c.prenom} ${c.nom}</div></td>
+                    <td><div class="text-sm">${c.offre_titre}</div></td>
+                    <td>${HH.statutBadge(c.statut)}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          `;
+      } catch (err) { console.error(err); }
+    }
+
+    function showOffreForm() { document.getElementById('offreForm').style.display = 'block'; }
+    function hideOffreForm() { document.getElementById('offreForm').style.display = 'none'; }
+
+    async function submitOffre(e) {
+      e.preventDefault();
+      try {
+        const offre = {
+          titre: document.getElementById('offreTitre').value,
+          description: document.getElementById('offreDesc').value,
+          localisation: document.getElementById('offreLocalisation').value,
+          type_contrat: document.getElementById('offreType').value,
+          salaire_min: parseInt(document.getElementById('offreSalaireMin').value) || null,
+          salaire_max: parseInt(document.getElementById('offreSalaireMax').value) || null,
+        };
+        await HH.api('/offres', { method: 'POST', body: JSON.stringify(offre) });
+        HH.Toast.success('Offre publiée !');
+        hideOffreForm(); loadOffres(); loadOverview();
+      } catch (err) { HH.Toast.error(err.message); }
+    }
+
+    async function loadOffres() {
+      try {
+        const data = await HH.api('/offres/mes');
+        const offres = data.offres || [];
+        document.getElementById('offresList').innerHTML = !offres.length
+          ? '<p class="empty-state">Vous n\'avez pas encore publié d\'offres.</p>'
+          : `
+            <table class="admin-table">
+              <thead><tr><th>Poste</th><th>Infos</th><th>Stats</th><th>Actions</th></tr></thead>
+              <tbody>
+                ${offres.map(o => `
+                  <tr>
+                    <td><div class="font-medium">${o.titre}</div></td>
+                    <td><div class="text-xs text-muted">${o.localisation || 'Remote'} · ${o.type_contrat}</div></td>
+                    <td><span class="tag tag-blue">${o.nb_candidatures || 0} candidatures</span></td>
+                    <td><button class="btn btn-danger btn-sm" onclick="deleteOffre('${o.id}')">Supprimer</button></td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          `;
+      } catch (err) { console.error(err); }
+    }
+
+    async function deleteOffre(id) {
+      if (!confirm('Supprimer cette offre ?')) return;
+      try {
+        await HH.api(`/offres/${id}`, { method: 'DELETE' });
+        HH.Toast.success('Offre supprimée.');
+        loadOffres(); loadOverview();
+      } catch (err) { HH.Toast.error(err.message); }
+    }
+
+    async function loadCandidatures() {
+      try {
+        const data = await HH.api('/candidatures/entreprise');
+        const candidatures = data.candidatures || [];
+        document.getElementById('candidaturesList').innerHTML = !candidatures.length
+          ? '<p class="empty-state">Aucune candidature reçue.</p>'
+          : `
+            <table class="admin-table">
+              <thead><tr><th>Candidat</th><th>Offre</th><th>Motivation</th><th>Actions</th></tr></thead>
+              <tbody>
+                ${candidatures.map(c => `
+                  <tr>
+                    <td>
+                      <div class="font-medium">${c.prenom} ${c.nom}</div>
+                      <div class="text-xs text-muted">${c.email}</div>
+                    </td>
+                    <td><div class="text-sm">${c.offre_titre}</div></td>
+                    <td>
+                      <div class="flex gap-2">
+                        ${c.cv_url ? `<a href="${c.cv_url}" target="_blank" class="tag tag-blue" style="text-decoration:none">CV</a>` : ''}
+                        ${c.lm_url ? `<a href="${c.lm_url}" target="_blank" class="tag tag-purple" style="text-decoration:none; background:#f3e8ff; color:#7c3aed">LM</a>` : ''}
+                        ${c.demande_url ? `<a href="${c.demande_url}" target="_blank" class="tag tag-amber" style="text-decoration:none">DEM</a>` : ''}
+                      </div>
+                    </td>
+                    <td>
+                      <div class="flex gap-2 flex-wrap">
+                        <button class="btn btn-success btn-sm" onclick="updateStatus('${c.id}', 'acceptee', '${c.candidat_id}')">Accepter</button>
+                        <button class="btn btn-danger btn-sm" onclick="updateStatus('${c.id}', 'refusee', '${c.candidat_id}')">Refuser</button>
+                        <button class="btn btn-outline btn-sm" onclick="openMessageModal('${c.candidat_id}', '${c.prenom} ${c.nom}')">Message</button>
+                      </div>
+                    </td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          `;
+      } catch (err) { console.error(err); }
+    }
+
+    async function updateStatus(id, status, candidatId) {
+      try {
+        await HH.api(`/candidatures/${id}/statut`, { method: 'PATCH', body: JSON.stringify({ statut: status }) });
+        
+        if (status === 'acceptee' && candidatId) {
+          try {
+            await HH.api('/messages', {
+              method: 'POST',
+              body: JSON.stringify({ destinataire_id: candidatId, contenu: "Vous êtes accepté(e) mais nous vous appelons pour l'entretien." })
+            });
+          } catch(e) { console.error('Erreur envoi message auto', e); }
+        }
+        
+        HH.Toast.success('Statut mis à jour.'); loadCandidatures();
+      } catch (err) { HH.Toast.error(err.message); }
+    }
+
+    async function loadProfil() {
+      try {
+        const user = HH.auth.getUser();
+        document.getElementById('profilNom').value = user.nom || '';
+        document.getElementById('profilEmail').value = user.email || '';
+      } catch (err) { console.error(err); }
+    }
+
+    async function submitProfil(e) {
+      e.preventDefault();
+      HH.Toast.success('Profil entreprise mis à jour !');
+    }
+
+    function refreshDashboard() {
+      HH.Toast.success('Actualisé');
+    }
+
+    // ─── MESSAGERIE ──────────────────────────────────
+    let selectedCandidatId = null;
+
+    function openMessageModal(candidatId, name) {
+      selectedCandidatId = candidatId;
+      document.getElementById('messageDestName').textContent = `Destinataire : ${name}`;
+      document.getElementById('messageText').value = '';
+      document.getElementById('messageModal').style.display = 'flex';
+    }
+
+    function closeMessageModal() {
+      document.getElementById('messageModal').style.display = 'none';
+      selectedCandidatId = null;
+    }
+
+    async function confirmSendMessage() {
+      const text = document.getElementById('messageText').value.trim();
+      if (!text) return HH.Toast.error('Veuillez saisir un message.');
+
+      const btn = document.getElementById('btnSendMessage');
+      btn.disabled = true;
+      btn.textContent = 'Envoi…';
+
+      try {
+        await HH.api('/messages', {
+          method: 'POST',
+          body: JSON.stringify({ destinataire_id: selectedCandidatId, contenu: text })
+        });
+        HH.Toast.success('Message envoyé !');
+        closeMessageModal();
+        if (document.getElementById('tab-messages').style.display !== 'none') loadMessages();
+      } catch (err) {
+        HH.Toast.error(err.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Envoyer';
+      }
+    }
+
+    let currentChatConv = null;
+    let chatPollInterval = null;
+
+    async function loadMessages() {
+      const list = document.getElementById('conversationsList');
+      const badge = document.getElementById('unreadMessagesBadge');
+      try {
+        const data = await HH.api('/messages/conversations');
+        // On entreprise dashboard, we show all conversations
+        const convs = data.conversations || [];
+
+        const totalUnread = convs.reduce((sum, c) => sum + (c.non_lu || 0), 0);
+        if (totalUnread > 0) {
+          badge.textContent = totalUnread; badge.style.display = 'block';
+        } else {
+          badge.style.display = 'none';
+        }
+
+        if (!convs.length) {
+          list.innerHTML = '<p class="empty-state">Aucune conversation.</p>';
+          return;
+        }
+
+        window.entrepriseConvsMap = {};
+        list.innerHTML = convs.map(c => {
+          window.entrepriseConvsMap[c.id] = c;
+          return `
+            <div class="conversation-item ${currentChatConv?.id === c.id ? 'active' : ''}" onclick="openChat('${c.id}')" style="cursor:pointer; display:flex; gap:12px; padding:12px; border-bottom:1px solid var(--gray-100);">
+              <div class="conv-avatar" style="width:40px;height:40px;background:var(--blue-100);color:var(--blue-600);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;flex-shrink:0;">
+                ${(c.prenom?.[0] || '')}${(c.nom?.[0] || '')}
+              </div>
+              <div class="conv-info" style="flex:1;min-width:0;">
+                <div class="conv-header" style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
+                  <span class="conv-name" style="font-weight:600;font-size:14px;color:var(--gray-800);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${c.prenom} ${c.nom}</span>
+                  <span class="conv-date" style="font-size:11px;color:var(--gray-400);flex-shrink:0;">${HH.formatDate(c.date_envoi)}</span>
+                </div>
+                <div class="conv-last" style="display:flex;justify-content:space-between;align-items:center;">
+                  <span class="last-text" style="font-size:13px;color:var(--gray-500);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;">${c.dernier_message || '—'}</span>
+                  ${c.non_lu > 0 ? `<span class="unread-badge" style="background:var(--red-500);color:white;font-size:11px;padding:2px 6px;border-radius:10px;margin-left:8px;">${c.non_lu}</span>` : ''}
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (err) {
+        list.innerHTML = '<p class="empty-state">Erreur de chargement.</p>';
+      }
+    }
+
+    async function openChat(convId) {
+      const conv = window.entrepriseConvsMap[convId];
+      if (!conv) return;
+      currentChatConv = conv;
+
+      document.getElementById('chatDefault').style.display = 'none';
+      document.getElementById('chatActive').style.display = 'flex';
+      document.getElementById('activeChatName').textContent = `${conv.prenom} ${conv.nom}`;
+      document.getElementById('activeChatAvatar').textContent = `${(conv.prenom?.[0] || '')}${(conv.nom?.[0] || '')}`;
+
+      clearInterval(chatPollInterval);
+      await fetchChatMessages();
+      chatPollInterval = setInterval(fetchChatMessages, 4000);
+      loadMessages(); // Rafraîchir la liste pour mettre en surbrillance l'active
+    }
+
+    async function fetchChatMessages() {
+      if (!currentChatConv) return;
+      try {
+        const data = await HH.api(`/messages/conversation/${currentChatConv.id}`);
+        const msgs = data.messages || [];
+        const el = document.getElementById('chatMessages');
+        const me = HH.auth.getUser();
+
+        el.innerHTML = msgs.map(m => {
+          const mine = m.expediteur_id === me?.id;
+          return `
+            <div class="msg-row ${mine ? 'mine' : ''}" style="display:flex;flex-direction:column;align-items:${mine ? 'flex-end' : 'flex-start'};margin-bottom:16px;">
+              <div>
+                <div class="msg-bubble ${mine ? 'mine' : 'theirs'}" style="padding:10px 14px;border-radius:12px;font-size:14px;background:${mine ? 'var(--blue-600)' : 'var(--gray-100)'};color:${mine ? 'white' : 'var(--gray-800)'};">${escapeHtml(m.contenu)}</div>
+                <p class="msg-time ${mine ? 'mine' : ''}" style="font-size:11px;color:var(--gray-400);margin-top:4px;text-align:${mine ? 'right' : 'left'}">${HH.formatDate(m.date_envoi)}</p>
+              </div>
+            </div>
+          `;
+        }).join('') || '<p style="text-align:center;color:var(--gray-400);font-size:13px;padding:24px;">Commencez la conversation</p>';
+
+        el.scrollTop = el.scrollHeight;
+      } catch (err) { console.error('Erreur chargement messages', err); }
+    }
+
+    async function sendChatMessage() {
+      const input = document.getElementById('chatInput');
+      const contenu = input.value.trim();
+      if (!contenu || !currentChatConv) return;
+      input.value = '';
+
+      try {
+        await HH.api('/messages', {
+          method: 'POST',
+          body: JSON.stringify({ destinataire_id: currentChatConv.id, contenu })
+        });
+        await fetchChatMessages();
+        await loadMessages();
+      } catch (err) {
+        HH.Toast.error(err.message);
+      }
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    // Using global logout() from main.js
+
+    showTab('overview');
+  </script>
+</body>
+
+</html>

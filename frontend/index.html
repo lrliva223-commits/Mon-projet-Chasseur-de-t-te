@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plateforme de recrutement</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+</head>
+<body>
+
+  <!-- ════════ NAVBAR ════════ -->
+  <nav class="navbar glass" style="position: fixed; top: 0; z-index: 1000; width: 100%;">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo" style="font-size: 20px; font-weight: 900;"><i>CHASSEUR DE TÊTE</i></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="offres.html">Explorer les offres</a></li>
+        <li><a href="#features">Services</a></li>
+        <li id="navAuth">
+          <a href="login.html" class="btn btn-outline" style="border-radius: 100px; padding: 10px 24px;">Connexion</a>
+          <a href="register.html" class="btn btn-primary" style="border-radius: 100px; padding: 10px 24px;">Nous rejoindre</a>
+        </li>
+      </ul>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- ════════ HERO ════════ -->
+  <section class="hero-premium">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Capturez les <span class="gradient-text">Meilleurs Talents</span> de demain</h1>
+        <p>Chasseur de tête-connecte les experts les plus qualifiés avec les entreprises les plus ambitieuses du marché.</p>
+        <div class="flex gap-4">
+          <a href="register.html?role=candidat" class="btn btn-primary btn-lg" style="border-radius: 100px;">Je suis un talent</a>
+          <a href="register.html?role=entreprise" class="btn btn-outline btn-lg" style="border-radius: 100px; color: white; border-color: white;">Je recrute</a>
+        </div>
+        
+        <div class="hero-stats-premium">
+          <div class="stat-block">
+            <span class="stat-value">+100</span>
+            <span class="stat-desc">Candidats actifs</span>
+          </div>
+          <div class="stat-block">
+            <span class="stat-value">450+</span>
+            <span class="stat-desc">Entreprises partenaires</span>
+          </div>
+          <div class="stat-block">
+            <span class="stat-value">98%</span>
+            <span class="stat-desc">Succès de placement</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ FEATURES ════════ -->
+  <section class="section" id="features" style="background: #f8fafc; padding: 100px 0;">
+    <div class="container text-center">
+      <span class="section-tag">Pourquoi nous ?</span>
+      <h2 class="section-title">Une expérience de recrutement <span class="candidate-accent">repensée</span></h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3 style="margin-bottom: 12px;">Matching Précis</h3>
+          <p class="text-sm text-muted">Notre algorithme identifie les profils qui correspondent exactement à votre culture et vos besoins techniques.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3 style="margin-bottom: 12px;">Rapidité d'Exécution</h3>
+          <p class="text-sm text-muted">Réduisez votre temps de recrutement par deux grâce à nos outils de gestion de pipeline intégrés.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h3 style="margin-bottom: 12px;">Sécurité & Fiabilité</h3>
+          <p class="text-sm text-muted">Tous nos candidats et entreprises sont vérifiés pour garantir des échanges sérieux et qualitatifs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ ENTREPRISES ════════ -->
+  <section class="section" style="padding: 100px 0;">
+    <div class="container">
+      <div class="flex justify-between items-end mb-10">
+        <div>
+          <span class="section-tag">Partenaires</span>
+          <h2 class="section-title" style="margin-bottom: 0;">Ils nous font confiance</h2>
+        </div>
+        <a href="offres.html" class="btn btn-outline" style="border-radius: 100px;">Voir toutes les opportunités →</a>
+      </div>
+      <div class="admin-stats-grid" id="companiesGrid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+        <p class="empty-state">Chargement des partenaires…</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ CTA BANNER ════════ -->
+  <section class="container">
+    <div class="cta-banner">
+      <h2 style="font-size: 36px; font-weight: 800; margin-bottom: 16px;">Prêt à donner un nouvel élan à votre carrière ?</h2>
+      <p style="opacity: 0.8; margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto;">Rejoignez des milliers de professionnels et d'entreprises qui ont déjà trouvé leur match parfait.</p>
+      <a href="register.html" class="btn btn-primary btn-lg" style="background: white; color: var(--primary); border-radius: 100px; font-weight: 700;">Commencer gratuitement</a>
+    </div>
+  </section>
+
+  <!-- ════════ FOOTER ════════ -->
+  <footer class="footer" style="background: #0f172a; color: white; padding: 80px 0 40px;">
+    <div class="container">
+      <div class="grid-4" style="gap: 40px;">
+        <div style="grid-column: span 2;">
+          <a href="#" class="logo" style="color: white; font-size: 24px;"><i>CHASSEUR DE TÊTE</i></a>
+          <p style="opacity: 0.6; margin-top: 20px; max-width: 350px;">La plateforme de recrutement d'élite qui transforme la façon dont les talents et les entreprises se rencontrent.</p>
+        </div>
+        <div>
+          <h4 style="margin-bottom: 24px; font-size: 16px;">Plateforme</h4>
+          <ul style="list-style: none; padding: 0; display: grid; gap: 12px;">
+            <li><a href="offres.html" style="color: white; opacity: 0.6; text-decoration: none;">Toutes les offres</a></li>
+            <li><a href="login.html" style="color: white; opacity: 0.6; text-decoration: none;">Connexion</a></li>
+            <li><a href="register.html" style="color: white; opacity: 0.6; text-decoration: none;">Inscription</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="margin-bottom: 24px; font-size: 16px;">Contact</h4>
+          <p style="opacity: 0.6;">Antananarivo, Madagascar</p>
+          <p style="opacity: 0.6; margin-top: 8px;">contact@chasseurdetete.mg</p>
+        </div>
+      </div>
+      <div style="margin-top: 80px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; font-size: 14px; opacity: 0.5;">
+        <span>© 2026 Chasseur de tête. Tous droits réservés.</span>
+        <div class="flex gap-6">
+          <a href="#" style="color: white; text-decoration: none;">Confidentialité</a>
+          <a href="#" style="color: white; text-decoration: none;">Mentions légales</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    async function loadCompanies() {
+      const grid = document.getElementById('companiesGrid');
+      if (!grid) return;
+      try {
+        const data = await HH.api('/entreprises/populaires');
+        const companies = data.entreprises || [];
+        if (!companies.length) {
+          grid.innerHTML = '<p class="empty-state">Aucune entreprise visible pour le moment.</p>';
+          return;
+        }
+        grid.innerHTML = companies.slice(0, 4).map(company => `
+          <a href="offres.html?entreprise_id=${company.id}" style="text-decoration: none; color: inherit;">
+            <div class="admin-stat-card" style="padding: 24px; height: 100%;">
+              <div class="flex items-center gap-4 mb-4">
+                <div style="width: 50px; height: 50px; border-radius: 12px; background: #f8fafc; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #f1f5f9;">
+                  ${company.logo_url ? `<img src="${company.logo_url}" style="width: 100%; height: 100%; object-fit: cover;" />` : `<span style="font-weight: 800; color: var(--primary);">${(company.nom || '??').slice(0,2).toUpperCase()}</span>`}
+                </div>
+                <div>
+                  <h3 style="font-size: 16px; font-weight: 700; margin: 0;">${company.nom || 'Entreprise'}</h3>
+                  <p class="text-xs text-muted" style="margin: 0;">${company.secteur || 'Technologie'}</p>
+                </div>
+              </div>
+              <div class="flex justify-between items-center" style="margin-top: auto;">
+                <span class="tag tag-blue" style="border-radius: 100px;">${company.offres_disponibles || 0} postes</span>
+                <span style="font-size: 12px; color: var(--primary); font-weight: 600;">Voir plus →</span>
+              </div>
+            </div>
+          </a>
+        `).join('');
+      } catch (err) {
+        grid.innerHTML = '<p class="empty-state">Impossible de charger les partenaires.</p>';
+      }
+    }
+    loadCompanies();
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        nav.style.padding = '10px 0';
+        nav.style.background = 'rgba(255, 255, 255, 0.9)';
+        nav.style.boxShadow = '0 10px 30px rgba(0,0,0,0.05)';
+      } else {
+        nav.style.padding = '20px 0';
+        nav.style.background = 'rgba(255, 255, 255, 0.7)';
+        nav.style.boxShadow = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Offres d'emploi — Chasseur de tête</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+</head>
+<body class="job-listing-container">
+  
+<nav class="navbar glass" style="position: sticky; top: 0; z-index: 100;">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo"><i>CHASSEUR DE TÊTE</i></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="offres.html" class="active">Explorer les offres</a></li>
+      <li id="navAuth">
+        <a href="login.html" class="btn btn-outline">Connexion</a>
+      </li>
+    </ul>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="flex">
+  <!-- Sidebar filtres -->
+  <aside class="filters-sidebar">
+    <h2 style="font-size: 16px; font-weight: 700; margin-bottom: 24px; color: #1e293b;">Filtres de recherche</h2>
+
+    <div class="form-group mb-4">
+      <label class="form-label">Mots-clés</label>
+      <input class="form-input" id="searchInput" type="text" placeholder="Poste, entreprise…" />
+    </div>
+
+    <div class="form-group mb-4">
+      <label class="form-label">Compétences</label>
+      <input class="form-input" id="skillsInput" type="text" placeholder="Ex: React, PHP, Vente…" />
+    </div>
+
+    <div class="form-group mb-4">
+      <label class="form-label">Localisation</label>
+      <input class="form-input" id="locInput" type="text" placeholder="Ville, Remote…" />
+    </div>
+
+    <div class="form-group mb-4">
+      <label class="form-label">Contrat</label>
+      <select class="form-input" id="typeInput">
+        <option value="">Tous les types</option>
+        <option>CDI</option><option>CDD</option><option>Freelance</option><option>Stage</option><option>Alternance</option>
+      </select>
+    </div>
+
+    <div class="form-group mb-4">
+      <label class="form-label">Salaire min (MGA)</label>
+      <input class="form-input" id="salInput" type="number" placeholder="ex : 40" min="0" />
+    </div>
+
+    <button class="btn btn-primary w-100" style="width:100%; margin-top: 10px;" id="filterBtn">Appliquer les filtres</button>
+    <button class="btn btn-outline w-100" style="width:100%; margin-top: 8px;" id="resetBtn">Réinitialiser</button>
+  </aside>
+
+  <!-- Contenu principal -->
+  <main style="flex:1; padding: 40px;">
+    
+    <div id="companyHeader" class="glass mb-4" style="display:none; padding: 24px; border-radius: 16px;">
+      <div style="display:flex; align-items:center; gap:20px">
+        <div id="companyLogo" style="width:64px; height:64px; border-radius:12px; background:white; display:flex; align-items:center; justify-content:center; overflow:hidden; border: 1px solid #f1f5f9;"></div>
+        <div>
+          <h2 id="companyName" style="margin:0; font-size: 24px; font-weight: 800;"></h2>
+          <p id="companySector" style="margin:4px 0 0; color: #64748b; font-size: 14px;"></p>
+        </div>
+      </div>
+      <a href="offres.html" style="margin-top: 16px; display: inline-block; color: var(--primary); font-size: 14px; font-weight: 600; text-decoration: none;">← Voir toutes les offres de la plateforme</a>
+    </div>
+
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="page-title" style="margin:0">Découvrir les opportunités</h1>
+      <span id="countLabel" class="text-sm text-muted">Chargement…</span>
+    </div>
+
+    <div class="pills mb-4" id="typePills">
+      <button class="pill active" data-type="">Toutes</button>
+      <button class="pill" data-type="CDI">CDI</button>
+      <button class="pill" data-type="CDD">CDD</button>
+      <button class="pill" data-type="Freelance">Freelance</button>
+      <button class="pill" data-type="Stage">Stage</button>
+      <button class="pill" data-type="Alternance">Alternance</button>
+    </div>
+
+    <div id="offresList"></div>
+    <div class="pagination" id="pagination" style="margin-top: 40px; display: flex; justify-content: center; gap: 8px;"></div>
+  </main>
+</div>
+
+<script src="main.js"></script>
+<script src="offres.js"></script>
+</body>
+</html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Administration — HeadHunter</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+</head>
+<body class="dashboard-admin">
+
+  <!-- ════════ SIDEBAR ════════ -->
+  <aside class="sidebar-modern">
+    <div class="logo-area">
+      <a href="index.html" class="logo"><i>CHASSEUR DE TÊTE</i></a>
+    </div>
+    
+    <nav class="nav-group">
+      <a href="#" class="nav-item active" id="nav-overview" onclick="showTab('overview')">
+        <svg xmlns="http://www.w3.org/2003/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+        </svg>
+        <span>Vue globale</span>
+      </a>
+      <a href="#" class="nav-item" id="nav-users" onclick="showTab('users')">
+        <svg xmlns="http://www.w3.org/2003/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <span>Utilisateurs</span>
+      </a>
+      <a href="#" class="nav-item" id="nav-entreprises" onclick="showTab('entreprises')">
+        <svg xmlns="http://www.w3.org/2003/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-7h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        </svg>
+        <span>Entreprises</span>
+      </a>
+      <a href="#" class="nav-item" id="nav-offres" onclick="showTab('offres')">
+        <svg xmlns="http://www.w3.org/2003/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+        <span>Offres</span>
+      </a>
+      <a href="#" class="nav-item" id="nav-candidatures" onclick="showTab('candidatures')">
+        <svg xmlns="http://www.w3.org/2003/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        <span>Candidatures</span>
+      </a>
+    </nav>
+
+    <div style="margin-top: auto;">
+      <a href="#" class="nav-item" onclick="logout()">
+        <svg xmlns="http://www.w3.org/2003/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+        </svg>
+        <span>Déconnexion</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ════════ MAIN CONTENT ════════ -->
+  <main class="admin-main">
+    
+    <header class="admin-header">
+      <div>
+        <h1 id="page-headline">Tableau de bord</h1>
+        <p class="text-muted" id="page-subheadline">Bienvenue dans votre espace d'administration</p>
+      </div>
+      <div class="flex gap-3">
+        <button class="btn btn-outline" onclick="refreshDashboard()">
+          <svg style="width:16px;height:16px" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+          Actualiser
+        </button>
+      </div>
+    </header>
+
+    <!-- Vue globale -->
+    <div id="tab-overview">
+      <div class="admin-stats-grid">
+        <div class="admin-stat-card clickable" onclick="showTab('users')">
+          <div class="admin-stat-info">
+            <h3>Utilisateurs</h3>
+            <div class="value" id="sUsers">—</div>
+            <span class="stat-action">Gérer →</span>
+          </div>
+          <div class="admin-stat-icon icon-blue">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="26" height="26"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+          </div>
+        </div>
+        <div class="admin-stat-card clickable" onclick="showTab('entreprises')">
+          <div class="admin-stat-info">
+            <h3>Entreprises</h3>
+            <div class="value" id="sEnt">—</div>
+            <span class="stat-action">Valider →</span>
+          </div>
+          <div class="admin-stat-icon icon-purple">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="26" height="26"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-7h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
+          </div>
+        </div>
+        <div class="admin-stat-card clickable" onclick="showTab('offres')">
+          <div class="admin-stat-info">
+            <h3>Offres</h3>
+            <div class="value" id="sOffres">—</div>
+            <span class="stat-action">Gérer →</span>
+          </div>
+          <div class="admin-stat-icon icon-green">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="26" height="26"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+          </div>
+        </div>
+        <div class="admin-stat-card clickable" onclick="showTab('candidatures')">
+          <div class="admin-stat-info">
+            <h3>Candidatures</h3>
+            <div class="value" id="sCand">—</div>
+            <span class="stat-action">Suivre →</span>
+          </div>
+          <div class="admin-stat-icon icon-amber">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="26" height="26"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <div class="admin-table-header">
+          <h2>Entreprises en attente de validation</h2>
+          <span class="tag tag-amber" id="pendingCount">0 en attente</span>
+        </div>
+        <div id="pendingList">
+          <p class="empty-state">Chargement…</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Utilisateurs -->
+    <div id="tab-users" style="display:none">
+      <div class="admin-card">
+        <div class="admin-table-header">
+          <h2>Liste des utilisateurs</h2>
+          <div class="flex gap-2">
+            <select id="roleFilter" class="form-input" style="width:150px" onchange="filterUsers(document.getElementById('userSearch').value)">
+              <option value="">Tous rôles</option>
+              <option value="candidat">Candidat</option>
+              <option value="recruteur">Recruteur</option>
+              <option value="entreprise">Entreprise</option>
+              <option value="admin">Admin</option>
+            </select>
+            <input class="form-input" id="userSearch" type="text" placeholder="Rechercher…" style="width:220px" oninput="filterUsers(this.value)" />
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Utilisateur</th>
+                <th>Email</th>
+                <th>Rôle</th>
+                <th>Statut</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="usersTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Entreprises -->
+    <div id="tab-entreprises" style="display:none">
+      <div class="admin-card">
+        <div class="admin-table-header">
+          <h2>Validation des entreprises</h2>
+        </div>
+        <div id="entreprisesList">
+          <p class="empty-state">Chargement…</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Offres -->
+    <div id="tab-offres" style="display:none">
+      <div class="admin-card">
+        <div class="admin-table-header">
+          <h2>Toutes les offres d'emploi</h2>
+        </div>
+        <div id="offresListAdmin">
+          <p class="empty-state">Chargement…</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Candidatures -->
+    <div id="tab-candidatures" style="display:none">
+      <div class="admin-card">
+        <div class="admin-table-header">
+          <h2>Suivi des candidatures</h2>
+        </div>
+        <div id="candidaturesListAdmin">
+          <p class="empty-state">Chargement…</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="main.js"></script>
+  <script>
+    function showTab(id) {
+      ['overview','users','entreprises','offres','candidatures'].forEach(t => {
+        const tabEl = document.getElementById('tab-' + t);
+        if (tabEl) tabEl.style.display = t === id ? 'block' : 'none';
+        const navItem = document.getElementById('nav-' + t);
+        if (navItem) navItem.classList.toggle('active', t === id);
+      });
+      
+      const headlines = {
+        overview: { title: 'Tableau de bord', sub: 'Vue d\'ensemble de la plateforme' },
+        users: { title: 'Gestion des utilisateurs', sub: 'Modération et suivi des membres' },
+        entreprises: { title: 'Validation entreprises', sub: 'Vérification des nouveaux comptes entreprise' },
+        offres: { title: 'Modération des offres', sub: 'Surveillance des annonces publiées' },
+        candidatures: { title: 'Suivi candidatures', sub: 'Historique des postulations sur la plateforme' }
+      };
+      
+      document.getElementById('page-headline').textContent = headlines[id].title;
+      document.getElementById('page-subheadline').textContent = headlines[id].sub;
+
+      if (id === 'users') loadUsers();
+      if (id === 'entreprises') loadEntreprises();
+      if (id === 'offres') loadAllOffres();
+      if (id === 'candidatures') loadAllCandidatures();
+    }
+
+    async function loadStats() {
+      try {
+        const data = await HH.api('/admin/stats');
+        HH.animateValue('sUsers', data.users);
+        HH.animateValue('sEnt', data.entreprises);
+        HH.animateValue('sOffres', data.offres);
+        HH.animateValue('sCand', data.candidatures);
+      } catch {}
+    }
+
+    // Custom helper for animated count-up
+    if (!HH.animateValue) {
+      HH.animateValue = function(id, value) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.textContent = value;
+      }
+    }
+
+    async function loadPending() {
+      try {
+        const data = await HH.api('/admin/entreprises-pending');
+        const list = data.entreprises || [];
+        document.getElementById('pendingCount').textContent = list.length + ' en attente';
+        if (!list.length) {
+          document.getElementById('pendingList').innerHTML = '<p class="empty-state">Aucune entreprise en attente.</p>';
+          return;
+        }
+        document.getElementById('pendingList').innerHTML = `
+          <table class="admin-table">
+            <thead>
+              <tr><th>Entreprise</th><th>SIRET / Secteur</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+              ${list.map(e => `
+                <tr>
+                  <td>
+                    <div class="font-medium">${e.nom}</div>
+                    <div class="text-xs text-muted">${e.adresse || ''}</div>
+                  </td>
+                  <td>
+                    <div class="text-sm">SIRET: ${e.siret || '—'}</div>
+                    <div class="text-xs text-muted">${e.secteur || '—'}</div>
+                  </td>
+                  <td>
+                    <div class="flex gap-2">
+                      <button class="btn btn-success btn-sm" onclick="validerEnt('${e.id}', true)">Valider</button>
+                      <button class="btn btn-danger btn-sm" onclick="validerEnt('${e.id}', false)">Refuser</button>
+                    </div>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        `;
+      } catch (err) {
+        document.getElementById('pendingList').innerHTML = '<p class="empty-state">Erreur de chargement.</p>';
+      }
+    }
+
+    async function validerEnt(id, verifie) {
+      try {
+        await HH.api(`/admin/entreprises/${id}/valider`, { method: 'PATCH', body: JSON.stringify({ verifie }) });
+        HH.Toast.success(verifie ? 'Entreprise validée.' : 'Entreprise refusée.');
+        loadPending(); loadStats();
+      } catch (err) { HH.Toast.error(err.message); }
+    }
+
+    let allUsers = [];
+    const ROLE_TAGS = { candidat:'tag-blue', recruteur:'tag-green', entreprise:'tag-amber', admin:'tag-gray' };
+    
+    async function loadUsers() {
+      try {
+        const data = await HH.api('/admin/users');
+        allUsers = data.users || [];
+        renderUsers(allUsers);
+      } catch {}
+    }
+
+    function renderUsers(list) {
+      document.getElementById('usersTable').innerHTML = list.map(u => `
+        <tr>
+          <td>
+            <div class="user-cell">
+              <div class="user-avatar">${(u.prenom?.[0]||'')+(u.nom?.[0]||'')}</div>
+              <div>
+                <div class="font-medium">${u.prenom} ${u.nom}</div>
+                <div class="text-xs text-muted">ID: ${u.id.slice(0,8)}...</div>
+              </div>
+            </div>
+          </td>
+          <td class="text-muted">${u.email}</td>
+          <td><span class="tag ${ROLE_TAGS[u.role]||'tag-gray'}">${u.role}</span></td>
+          <td><span class="tag ${u.statut==='actif'?'tag-green':'tag-red'}">${u.statut}</span></td>
+          <td>
+            <div class="flex gap-2">
+              ${u.statut === 'actif'
+                ? `<button class="btn btn-outline btn-sm" onclick="updateStatut('${u.id}','suspendu')">Suspendre</button>`
+                : `<button class="btn btn-success btn-sm" onclick="updateStatut('${u.id}','actif')">Réactiver</button>`
+              }
+              <button class="btn btn-danger btn-sm" onclick="deleteUser('${u.id}')">
+                <svg style="width:14px;height:14px" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function filterUsers(q) {
+      const role = document.getElementById('roleFilter').value;
+      const normalized = q.trim().toLowerCase();
+      const filtered = allUsers.filter(u => {
+        const matchesText = `${u.nom} ${u.prenom} ${u.email}`.toLowerCase().includes(normalized);
+        const matchesRole = !role || u.role === role;
+        return matchesText && matchesRole;
+      });
+      renderUsers(filtered);
+    }
+
+    async function updateStatut(id, statut) {
+      try {
+        await HH.api(`/admin/users/${id}/statut`, { method: 'PATCH', body: JSON.stringify({ statut }) });
+        HH.Toast.success('Statut mis à jour.');
+        loadUsers();
+      } catch (err) { HH.Toast.error(err.message); }
+    }
+
+    async function deleteUser(id) {
+      if (!confirm('Confirmez-vous la suppression de cet utilisateur ?')) return;
+      try {
+        await HH.api(`/admin/users/${id}`, { method: 'DELETE' });
+        HH.Toast.success('Utilisateur supprimé.');
+        loadUsers();
+      } catch (err) { HH.Toast.error(err.message); }
+    }
+
+    async function loadEntreprises() {
+      try {
+        const data = await HH.api('/admin/entreprises-pending');
+        const list = data.entreprises || [];
+        document.getElementById('entreprisesList').innerHTML = !list.length
+          ? '<p class="empty-state">Aucune entreprise en attente.</p>'
+          : `
+            <table class="admin-table">
+              <thead>
+                <tr><th>Entreprise</th><th>SIRET</th><th>Secteur</th><th>Actions</th></tr>
+              </thead>
+              <tbody>
+                ${list.map(e => `
+                  <tr>
+                    <td><div class="font-medium">${e.nom}</div><div class="text-xs text-muted">${e.adresse||''}</div></td>
+                    <td>${e.siret||'—'}</td>
+                    <td>${e.secteur||'—'}</td>
+                    <td>
+                      <div class="flex gap-2">
+                        <button class="btn btn-success btn-sm" onclick="validerEnt('${e.id}',true)">Valider</button>
+                        <button class="btn btn-danger btn-sm" onclick="validerEnt('${e.id}',false)">Refuser</button>
+                      </div>
+                    </td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          `;
+      } catch {}
+    }
+
+    async function loadAllOffres() {
+      try {
+        const data = await HH.api('/admin/offres');
+        const list = data.offres || [];
+        document.getElementById('offresListAdmin').innerHTML = !list.length
+          ? '<p class="empty-state">Aucune offre publiée.</p>'
+          : `
+            <table class="admin-table">
+              <thead>
+                <tr><th>Poste</th><th>Entreprise</th><th>Stats</th><th>Statut</th><th>Actions</th></tr>
+              </thead>
+              <tbody>
+                ${list.map(o => `
+                  <tr>
+                    <td><div class="font-medium">${o.titre}</div><div class="text-xs text-muted">${o.localisation || 'Remote'}</div></td>
+                    <td><div class="text-sm">${o.entreprise_nom || 'Recruteur indépendant'}</div></td>
+                    <td><span class="tag tag-blue">${o.nb_candidatures || 0} postulants</span></td>
+                    <td><span class="tag ${o.statut === 'active' ? 'tag-green' : 'tag-gray'}">${o.statut}</span></td>
+                    <td>
+                      <button class="btn btn-danger btn-sm" onclick="deleteOffreAdmin('${o.id}')">
+                        Supprimer
+                      </button>
+                    </td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          `;
+      } catch (err) {
+        document.getElementById('offresListAdmin').innerHTML = '<p class="empty-state">Erreur de chargement.</p>';
+      }
+    }
+
+    async function deleteOffreAdmin(id) {
+      if (!confirm('Voulez-vous vraiment supprimer cette offre d\'emploi ?')) return;
+      try {
+        await HH.api(`/admin/offres/${id}`, { method: 'DELETE' });
+        HH.Toast.success('Offre supprimée.');
+        loadAllOffres();
+        loadStats();
+      } catch (err) { HH.Toast.error(err.message); }
+    }
+
+    async function loadAllCandidatures() {
+      try {
+        // Placeholder
+        document.getElementById('candidaturesListAdmin').innerHTML = '<p class="empty-state">Fonctionnalité en cours de déploiement...</p>';
+      } catch {}
+    }
+
+    function refreshDashboard() {
+      loadStats();
+      loadPending();
+      const activeItem = document.querySelector('.nav-item.active');
+      if (activeItem) {
+        const activeTab = activeItem.id.replace('nav-', '');
+        if (activeTab === 'users') loadUsers();
+        if (activeTab === 'entreprises') loadEntreprises();
+        if (activeTab === 'offres') loadAllOffres();
+        if (activeTab === 'candidatures') loadAllCandidatures();
+      }
+      HH.Toast.success('Dashboard actualisé');
+    }
+
+    // logout() function removed, using global one from main.js
+
+    // Init
+    loadStats();
+    loadPending();
+  </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Messagerie — Chasseur de tête</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo"><b><i>Chasseur de tête</i></b></a>
+    <ul class="nav-links" id="navLinks">
+      <li id="navAuth"></li>
+    </ul>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="messagerie">
+  <!-- Liste conversations -->
+  <div class="conv-list" id="convList">
+    <div style="padding:14px 16px;border-bottom:1px solid var(--gray-100);font-size:13px;font-weight:600">Conversations</div>
+    <div id="convItems"><p class="empty-state" style="padding:20px">Chargement…</p></div>
+  </div>
+
+  <!-- Zone chat -->
+  <div class="chat-area" id="chatArea">
+    <div style="flex:1;display:flex;align-items:center;justify-content:center;color:var(--gray-400)">
+      <p>Sélectionnez une conversation</p>
+    </div>
+  </div>
+</div>
+
+<script src="main.js"></script>
+<script src="messagerie.js"></script>
+</body>
+</html>
