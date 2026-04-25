@@ -2,7 +2,7 @@
 // HeadHunter — main.js  (JS vanilla partagé)
 // ══════════════════════════════════════════════════
 
-const API_BASE = 'http://localhost:5000';
+const API_BASE = 'https://chasseur-de-tete.onrender.com';
 const API = `${API_BASE}/api/v1`;
 
 /* ─── Token helpers ─────────────────────────────── */
