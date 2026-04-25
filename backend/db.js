@@ -15,11 +15,16 @@ const pool = mysql.createPool({
     rejectUnauthorized: false
   }
 });
-db.connect((err) => {
-  if (err) {
-    console.error("❌ Erreur connexion base de données :", err);
-  } else {
+
+// ✅ Test de connexion
+(async () => {
+  try {
+    const connection = await pool.getConnection();
     console.log("✅ Base de données connectée !");
+    connection.release();
+  } catch (err) {
+    console.error("❌ Erreur connexion base de données :", err);
   }
-});
+})();
+
 module.exports = pool;
