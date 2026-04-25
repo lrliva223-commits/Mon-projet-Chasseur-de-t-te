@@ -10,7 +10,9 @@ const PORT = process.env.PORT || 5000;
 const { upload, uploadErrorHandler } = require('./middleware/upload');
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'https://chasseur-de-tete.onrender.com' // L'URL de votre frontend sur Vercel
+}));
 app.use(express.json());
 
 // Servir les fichiers statiques du frontend
