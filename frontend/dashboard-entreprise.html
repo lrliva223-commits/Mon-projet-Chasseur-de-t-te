@@ -477,6 +477,17 @@
             </table>
           `;
       } catch (err) { console.error(err); }
+
+    }      async function updateStatus(id, status, candidatId) {
+      try {
+        await HH.api(`/candidatures/${id}/statut`, { method: 'PATCH', body: JSON.stringify({ statut: status }) });
+        HH.Toast.success('Statut mis à jour.'); 
+        loadCandidatures();
+      } catch (err) { 
+        HH.Toast.error(err.message); 
+      }
+    }
+
     }
 
     async function updateStatus(id, status, candidatId) {
