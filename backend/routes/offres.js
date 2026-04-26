@@ -149,7 +149,8 @@ router.get('/', async (req, res) => {
          e.nom as entreprise_nom,
          e.secteur as entreprise_secteur,
          CONCAT(ur.prenom, ' ', ur.nom) as recruteur_nom,
-         ur.prenom as recruteur_prenom
+         ur.prenom as recruteur_prenom,
+         (SELECT COUNT(*) FROM candidatures WHERE offre_id = o.id) as nb_candidatures
        FROM offres_emploi o
        LEFT JOIN entreprises e ON o.entreprise_id = e.id
        LEFT JOIN recruteurs r ON o.recruteur_id = r.id
