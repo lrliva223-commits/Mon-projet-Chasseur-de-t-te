@@ -478,31 +478,31 @@
           `;
       } catch (err) { console.error(err); }
 
-    }      async function updateStatus(id, status, candidatId) {
+    } async function updateStatus(id, status, candidatId) {
       try {
         await HH.api(`/candidatures/${id}/statut`, { method: 'PATCH', body: JSON.stringify({ statut: status }) });
-        HH.Toast.success('Statut mis à jour.'); 
+        HH.Toast.success('Statut mis à jour.');
         loadCandidatures();
-      } catch (err) { 
-        HH.Toast.error(err.message); 
+      } catch (err) {
+        HH.Toast.error(err.message);
       }
     }
 
-    }
+
 
     async function updateStatus(id, status, candidatId) {
       try {
         await HH.api(`/candidatures/${id}/statut`, { method: 'PATCH', body: JSON.stringify({ statut: status }) });
-        
+
         if (status === 'acceptee' && candidatId) {
           try {
             await HH.api('/messages', {
               method: 'POST',
               body: JSON.stringify({ destinataire_id: candidatId, contenu: "Vous êtes accepté(e) mais nous vous appelons pour l'entretien." })
             });
-          } catch(e) { console.error('Erreur envoi message auto', e); }
+          } catch (e) { console.error('Erreur envoi message auto', e); }
         }
-        
+
         HH.Toast.success('Statut mis à jour.'); loadCandidatures();
       } catch (err) { HH.Toast.error(err.message); }
     }
@@ -671,7 +671,7 @@
     }
 
     function escapeHtml(str) {
-      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
 
     // Using global logout() from main.js
