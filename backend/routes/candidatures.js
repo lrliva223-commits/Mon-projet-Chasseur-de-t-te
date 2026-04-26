@@ -146,8 +146,10 @@ router.get('/offre/:id', auth, async (req, res) => {
       if (!entrepriseId || entrepriseId !== offer.entreprise_id) {
         return res.status(403).json({ error: 'Accès refusé.' });
       }
+    } else if (req.user.role === 'recruteur') {
+      // Le recruteur (chasseur de tête) peut voir les candidatures de toutes les offres
     } else {
-      return res.status(403).json({ error: 'Accès réservé aux entreprises.' });
+      return res.status(403).json({ error: 'Accès réservé aux entreprises et recruteurs.' });
     }
 
     const [candidatures] = await pool.execute(
@@ -197,8 +199,10 @@ router.patch('/:id/statut', auth, async (req, res) => {
       if (!entrepriseId || entrepriseId !== application.entreprise_id) {
         return res.status(403).json({ error: 'Accès refusé.' });
       }
+    } else if (req.user.role === 'recruteur') {
+      // Le recruteur peut changer le statut des candidatures
     } else {
-      return res.status(403).json({ error: 'Accès réservé aux entreprises.' });
+      return res.status(403).json({ error: 'Accès réservé aux entreprises et recruteurs.' });
     }
 
     await pool.execute('UPDATE candidatures SET statut = ? WHERE id = ?', [statut, id]);
