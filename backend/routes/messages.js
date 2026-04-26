@@ -82,6 +82,20 @@ router.post('/', async (req, res) => {
       return res.status(404).json({ error: 'Destinataire introuvable.' });
     }
     const destinataire_role = users[0].role;
+    // Sécurité : Le candidat ne peut pas envoyer le premier message
+    if (req.user.role === 'candidat' && destinataire_role === 'entreprise') {
+      const [firstMsg] = await pool.execute(
+        `SELECT expediteur_id FROM messages 
+         WHERE (expediteur_id = ? AND destinataire_id = ?) 
+            OR (expediteur_id = ? AND destinataire_id = ?)
+         ORDER BY date_envoi ASC LIMIT 1`,
+        [expediteur_id, destinataire_id, destinataire_id, expediteur_id]
+      );
+      
+      if (firstMsg.length === 0 || firstMsg[0].expediteur_id === expediteur_id) {
+        return res.status(403).json({ error: "Seule l'entreprise peut initier la conversation." });
+      }
+    }
 
     // Condition: le candidat ne peut envoyer un message que si l'entreprise a initié la conversation
     if (req.user.role === 'candidat' && destinataire_role === 'entreprise') {
