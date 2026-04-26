@@ -202,8 +202,6 @@ router.patch('/:id/statut', auth, async (req, res) => {
     }
 
     await pool.execute('UPDATE candidatures SET statut = ? WHERE id = ?', [statut, id]);
-   
-        await pool.execute('UPDATE candidatures SET statut = ? WHERE id = ?', [statut, id]);
 
     // ✅ AUTOMATISATION : Envoi d'un message si la candidature est acceptée
     if (statut === 'acceptee') {
