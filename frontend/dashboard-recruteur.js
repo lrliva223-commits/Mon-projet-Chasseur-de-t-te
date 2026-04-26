@@ -73,17 +73,17 @@ async function loadAllPlatformOffres() {
     }
     container.innerHTML = `
       <table class="admin-table">
-        <thead><tr><th>Poste</th><th>Entreprise</th><th>Infos</th><th>Actions</th></tr></thead>
+        <thead><tr><th>Poste</th><th>Entreprise</th><th>Candidats</th><th>Infos</th><th>Actions</th></tr></thead>
         <tbody>
           ${offres.map(o => `
             <tr>
               <td><div class="font-medium">${o.titre}</div></td>
               <td><div class="text-sm">${o.entreprise_nom || o.recruteur_nom || '—'}</div></td>
-              <td><div class="text-xs text-muted">${o.localisation || 'Remote'} · ${o.type_contrat} · ${HH.formatDate(o.date_publication)}</div></td>
+              <td><span class="tag ${o.nb_candidatures > 0 ? 'tag-purple' : 'tag-gray'}">${o.nb_candidatures || 0} postulant(s)</span></td>
+              <td><div class="text-xs text-muted">${o.localisation || 'Remote'} · ${o.type_contrat}</div></td>
               <td>
                 <div class="flex gap-2">
-                  <button class="btn btn-outline btn-sm" onclick="openPipelineGlobal('${o.id}')">Voir candidatures</button>
-                  <button class="btn btn-primary btn-sm" onclick="openMessageFromOffre('${o.id}')">Contacter</button>
+                  <button class="btn btn-outline btn-sm" onclick="openPipelineGlobal('${o.id}')">Voir Pipeline</button>
                 </div>
               </td>
             </tr>
