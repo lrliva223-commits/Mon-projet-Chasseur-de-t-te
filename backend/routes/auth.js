@@ -11,7 +11,7 @@ router.post('/register', async (req, res) => {
   try {
     const { email, mot_de_passe, role, prenom, nom, nom_entreprise, siret, logo_url } = req.body;
 
-    if (!['candidat', 'entreprise', 'admin'].includes(role)) {
+    if (!['candidat', 'entreprise', 'recruteur', 'admin'].includes(role)) {
       return res.status(400).json({ error: 'Rôle invalide.' });
     }
 
@@ -38,6 +38,11 @@ router.post('/register', async (req, res) => {
     if (role === 'candidat') {
       await pool.execute(
         'INSERT INTO candidats (id, utilisateur_id) VALUES (?, ?)',
+        [profileId, userId]
+      );
+    } else if (role === 'recruteur') {
+      await pool.execute(
+        'INSERT INTO recruteurs (id, utilisateur_id) VALUES (?, ?)',
         [profileId, userId]
       );
     } else if (role === 'entreprise') {
