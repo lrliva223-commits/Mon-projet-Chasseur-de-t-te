@@ -22,6 +22,10 @@
         <div class="role-label">CANDIDAT</div>
         <div class="role-desc">Postulez aux meilleures offres</div>
       </div>
+      <div class="role-btn" data-role="recruteur">
+        <div class="role-label">RECRUTEUR</div>
+        <div class="role-desc">Chasseur de tête indépendant</div>
+      </div>
       <div class="role-btn" data-role="entreprise">
         <div class="role-label">ENTREPRISE</div>
         <div class="role-desc">Recrutez des talents d'élite</div>
@@ -85,7 +89,7 @@
   <script src="main.js"></script>
   <script>
     let selectedRole = 'candidat';
-    const validRoles = ['candidat', 'entreprise', 'admin'];
+    const validRoles = ['candidat', 'entreprise', 'recruteur', 'admin'];
     const urlRole = new URLSearchParams(window.location.search).get('role');
     if (urlRole && validRoles.includes(urlRole)) { selectedRole = urlRole; }
 
@@ -103,6 +107,11 @@
         companyField.style.display = 'block';
         enterpriseFields.style.display = 'grid';
         subMsg.textContent = 'Inscrivez votre entreprise';
+      } else if (selectedRole === 'recruteur') {
+        nameFields.style.display = 'grid';
+        companyField.style.display = 'none';
+        enterpriseFields.style.display = 'none';
+        subMsg.textContent = 'Créez votre profil de chasseur de tête';
       } else if (selectedRole === 'admin') {
         nameFields.style.display = 'none';
         companyField.style.display = 'none';
@@ -147,6 +156,9 @@
         body.nom_entreprise = document.getElementById('company').value;
         body.nif = document.getElementById('nif').value;
         body.stat = document.getElementById('stat').value;
+      } else if (selectedRole === 'recruteur') {
+        body.prenom = document.getElementById('prenom').value;
+        body.nom = document.getElementById('nom').value;
       } else if (selectedRole !== 'admin') {
         body.prenom = document.getElementById('prenom').value;
         body.nom = document.getElementById('nom').value;
@@ -159,7 +171,7 @@
         const data = await HH.api('/auth/register', { method: 'POST', body: JSON.stringify(body) });
         HH.auth.setSession(data);
         HH.Toast.success('Bienvenue chez HeadHunter !');
-        const map = { candidat: 'dashboard-candidat.html', entreprise: 'dashboard-entreprise.html', admin: 'dashboard-admin.html' };
+        const map = { candidat: 'dashboard-candidat.html', recruteur: 'dashboard-recruteur.html', entreprise: 'dashboard-entreprise.html', admin: 'dashboard-admin.html' };
         setTimeout(() => window.location.href = map[data.user.role] || 'index.html', 800);
       } catch (err) {
         HH.Toast.error(err.message);
