@@ -202,6 +202,32 @@ router.patch('/:id/statut', auth, async (req, res) => {
     }
 
     await pool.execute('UPDATE candidatures SET statut = ? WHERE id = ?', [statut, id]);
+   
+        await pool.execute('UPDATE candidatures SET statut = ? WHERE id = ?', [statut, id]);
+
+    // ✅ AUTOMATISATION : Envoi d'un message si la candidature est acceptée
+    if (statut === 'acceptee') {
+      try {
+        const [candidateData] = await pool.execute(
+          'SELECT can.utilisateur_id FROM candidatures c JOIN candidats can ON c.candidat_id = can.id WHERE c.id = ?',
+          [id]
+        );
+
+        if (candidateData.length > 0) {
+          const destinataire_id = candidateData[0].utilisateur_id;
+          const expediteur_id = userId; // L'entreprise connectée
+          const contenu = "Votre postulation est acceptée, nous vous rappelons pour l'entretien";
+
+          await pool.execute(
+            'INSERT INTO messages (id, expediteur_id, destinataire_id, contenu) VALUES (?, ?, ?, ?)',
+            [uuidv4(), expediteur_id, destinataire_id, contenu]
+          );
+        }
+      } catch (msgErr) {
+        console.error('Erreur message auto:', msgErr);
+      }
+    }
+
     res.json({ message: 'Statut mis à jour.' });
   } catch (err) {
     console.error(err);
