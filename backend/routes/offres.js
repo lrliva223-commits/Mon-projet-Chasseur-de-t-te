@@ -5,7 +5,7 @@ const auth = require('../middleware/auth');
 
 const router = express.Router();
 
-// POST /offres - Créer une offre (entreprise uniquement)
+// POST /offres - Créer une offre (entreprise ou recruteur)
 router.post('/', auth, async (req, res) => {
   try {
     const {
@@ -23,6 +23,7 @@ router.post('/', auth, async (req, res) => {
 
     const userId = req.user.id;
     let entrepriseId = null;
+    let recruteurId = null;
 
     if (req.user.role === 'entreprise') {
       const [rows] = await pool.execute('SELECT id FROM entreprises WHERE utilisateur_id = ?', [userId]);
@@ -30,8 +31,14 @@ router.post('/', auth, async (req, res) => {
         return res.status(404).json({ error: 'Profil entreprise non trouvé.' });
       }
       entrepriseId = rows[0].id;
+    } else if (req.user.role === 'recruteur') {
+      const [rows] = await pool.execute('SELECT id FROM recruteurs WHERE utilisateur_id = ?', [userId]);
+      if (rows.length === 0) {
+        return res.status(404).json({ error: 'Profil recruteur non trouvé.' });
+      }
+      recruteurId = rows[0].id;
     } else {
-      return res.status(403).json({ error: 'Accès réservé aux entreprises.' });
+      return res.status(403).json({ error: 'Accès réservé aux entreprises et recruteurs.' });
     }
 
     const id = uuidv4();
@@ -39,7 +46,7 @@ router.post('/', auth, async (req, res) => {
       'INSERT INTO offres_emploi (id, recruteur_id, entreprise_id, titre, description, localisation, type_contrat, salaire_min, salaire_max, statut) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       [
         id,
-        null,
+        recruteurId,
         entrepriseId,
         titre,
         description,
@@ -55,7 +62,7 @@ router.post('/', auth, async (req, res) => {
       message: 'Offre créée avec succès.',
       offre: {
         id,
-        recruteur_id: null,
+        recruteur_id: recruteurId,
         entreprise_id: entrepriseId,
         titre,
         description,
@@ -167,7 +174,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET /offres/mes - Offres de l'entreprise connectée
+// GET /offres/mes - Offres de l'entreprise ou du recruteur connecté
 router.get('/mes', auth, async (req, res) => {
   try {
     const userId = req.user.id;
@@ -179,8 +186,13 @@ router.get('/mes', auth, async (req, res) => {
       if (!rows.length) return res.status(404).json({ error: 'Profil entreprise non trouvé.' });
       whereClause = 'o.entreprise_id = ?';
       params = [rows[0].id];
+    } else if (req.user.role === 'recruteur') {
+      const [rows] = await pool.execute('SELECT id FROM recruteurs WHERE utilisateur_id = ?', [userId]);
+      if (!rows.length) return res.status(404).json({ error: 'Profil recruteur non trouvé.' });
+      whereClause = 'o.recruteur_id = ?';
+      params = [rows[0].id];
     } else {
-      return res.status(403).json({ error: 'Accès réservé aux entreprises.' });
+      return res.status(403).json({ error: 'Accès réservé aux entreprises et recruteurs.' });
     }
 
     const [offres] = await pool.execute(
