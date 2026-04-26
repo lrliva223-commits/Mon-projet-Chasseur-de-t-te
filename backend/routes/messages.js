@@ -9,12 +9,14 @@ router.use(auth);
 router.get('/conversations', async (req, res) => {
   try {
     const userId = req.user.id;
-
-    // Étape 1 : trouver tous les interlocuteurs
     const [rows] = await pool.execute(
       `SELECT 
          u.id,
-         CASE WHEN u.role = 'entreprise' THEN COALESCE(e.nom, u.prenom) ELSE u.prenom END AS prenom,
+         CASE 
+           WHEN u.role = 'entreprise' THEN COALESCE(e.nom, u.prenom) 
+           WHEN u.role = 'recruteur' THEN u.prenom
+           ELSE u.prenom 
+         END AS prenom,
          CASE WHEN u.role = 'entreprise' THEN '' ELSE u.nom END AS nom,
          u.role,
          (SELECT contenu FROM messages 
@@ -74,6 +76,8 @@ router.post('/', async (req, res) => {
     const expediteur_id = req.user.id;
     const { destinataire_id, contenu } = req.body;
 
+    console.log(`Tentative d'envoi de message de ${expediteur_id} (${req.user.role}) vers ${destinataire_id}`);
+
     if (!destinataire_id || !contenu?.trim()) {
       return res.status(400).json({ error: 'Destinataire et contenu requis.' });
     }
@@ -84,7 +88,7 @@ router.post('/', async (req, res) => {
     }
     const destinataire_role = users[0].role;
 
-    // Sécurité : Le candidat ne peut pas envoyer le premier message à une entreprise
+    // Sécurité : Seul un candidat a des restrictions d'envoi vers Entreprise/Recruteur
     if (req.user.role === 'candidat' && (destinataire_role === 'entreprise' || destinataire_role === 'recruteur')) {
       const [firstMsg] = await pool.execute(
         `SELECT expediteur_id FROM messages 
@@ -105,9 +109,10 @@ router.post('/', async (req, res) => {
       [id, expediteur_id, destinataire_id, contenu]
     );
 
+    console.log('Message inséré avec succès');
     res.json({ message: 'Message envoyé.' });
   } catch (err) {
-    console.error(err);
+    console.error('Erreur POST /messages:', err);
     res.status(500).json({ error: 'Erreur serveur.' });
   }
 });
