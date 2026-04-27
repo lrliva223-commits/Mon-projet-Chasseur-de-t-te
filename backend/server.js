@@ -30,6 +30,7 @@ app.use('/api/v1/candidatures', require('./routes/candidatures'));
 app.use('/api/v1/candidats', require('./routes/candidats'));
 app.use('/api/v1/admin', require('./routes/admin'));
 app.use('/api/v1/messages', require('./routes/messages'));
+app.use('/api/v1/users', require('./routes/users'));
 
 // Route de test santé
 app.get('/api/v1/health', (req, res) => {
