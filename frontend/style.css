@@ -3509,3 +3509,463 @@ tbody tr:last-child td {
 .msg-time.mine { text-align: right; }
 .chat-input-row { padding: 20px 24px; border-top: 1px solid var(--gray-100); display: flex; gap: 12px; align-items: center; background: #fff; }
 .unread-badge { background: var(--primary); color: #fff; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-left: auto; }
+
+/* ══════════════════════════════════════
+   RESPONSIVE — TABLET (max 1024px)
+   ══════════════════════════════════════ */
+@media (max-width: 1024px) {
+
+  /* Dashboards : sidebar plus étroite */
+  .dashboard-admin,
+  .dashboard-candidate,
+  .dashboard-entreprise,
+  .dashboard-recruteur {
+    grid-template-columns: 200px 1fr;
+  }
+
+  .sidebar-modern,
+  .sidebar-candidate,
+  .sidebar-entreprise,
+  .sidebar-recruteur {
+    padding: 20px 12px;
+    gap: 24px;
+  }
+
+  .admin-main {
+    padding: 24px;
+  }
+
+  /* Grids */
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  /* Messagerie Pro */
+  .messaging-container {
+    height: 500px;
+  }
+
+  .conversations-sidebar {
+    width: 260px;
+  }
+
+  /* Hero */
+  .hero-inner {
+    gap: 32px;
+  }
+
+  .hero {
+    padding: 60px 0 80px;
+  }
+
+  /* CTA Banner */
+  .cta-banner {
+    padding: 48px 32px;
+    margin: 48px 0;
+  }
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE — MOBILE (max 768px)
+   ══════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ─── Dashboards : sidebar → barre horizontale ─── */
+  .dashboard-admin,
+  .dashboard-candidate,
+  .dashboard-entreprise,
+  .dashboard-recruteur {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar-modern,
+  .sidebar-candidate,
+  .sidebar-entreprise,
+  .sidebar-recruteur {
+    width: 100%;
+    padding: 12px 16px;
+    gap: 0;
+    flex-direction: row;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .sidebar-modern .logo-area,
+  .sidebar-candidate .logo-area,
+  .sidebar-entreprise .logo-area,
+  .sidebar-recruteur .logo-area {
+    display: none;
+  }
+
+  .sidebar-modern .nav-group,
+  .sidebar-candidate .nav-group,
+  .sidebar-entreprise .nav-group,
+  .sidebar-recruteur .nav-group {
+    flex-direction: row;
+    gap: 4px;
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  .sidebar-modern .nav-item,
+  .sidebar-candidate .nav-item,
+  .sidebar-entreprise .nav-item,
+  .sidebar-recruteur .nav-item {
+    white-space: nowrap;
+    padding: 8px 12px;
+    font-size: 12px;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .sidebar-candidate .nav-item.active,
+  .sidebar-entreprise .nav-item.active,
+  .sidebar-recruteur .nav-item.active {
+    border-right: none;
+    border-bottom: 2px solid currentColor;
+  }
+
+  .admin-main,
+  .main-content {
+    padding: 16px;
+  }
+
+  /* ─── Hero section ─── */
+  h1 {
+    font-size: 28px;
+  }
+
+  .hero {
+    padding: 48px 0 60px;
+  }
+
+  .hero-premium {
+    min-height: 70vh;
+    padding-top: 40px;
+  }
+
+  .hero-premium h1 {
+    font-size: clamp(28px, 7vw, 48px);
+  }
+
+  .hero-premium p {
+    font-size: 16px;
+  }
+
+  .hero-stats-premium {
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .stat-value {
+    font-size: 24px;
+  }
+
+  /* ─── Grids ─── */
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .admin-stats-grid {
+    gap: 12px;
+  }
+
+  .feature-grid {
+    gap: 20px;
+  }
+
+  /* ─── Kanban ─── */
+  .kanban {
+    grid-template-columns: 1fr;
+  }
+
+  .kanban-col {
+    min-height: 200px;
+  }
+
+  /* ─── Messagerie ─── */
+  .messagerie {
+    flex-direction: column;
+    height: auto;
+    min-height: calc(100vh - 120px);
+    margin: 10px;
+    border-radius: 12px;
+  }
+
+  .conv-list {
+    width: 100%;
+    height: 200px;
+    border-right: none;
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .messaging-container {
+    flex-direction: column;
+    height: auto;
+    min-height: 500px;
+  }
+
+  .conversations-sidebar {
+    width: 100%;
+    max-height: 220px;
+    border-right: none;
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  /* ─── Cards et conteneurs ─── */
+  .admin-card {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .admin-table-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .admin-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .admin-header h1 {
+    font-size: 22px;
+  }
+
+  /* ─── Welcome banner ─── */
+  .welcome-banner {
+    padding: 24px;
+    border-radius: 16px;
+  }
+
+  .welcome-banner h1 {
+    font-size: 24px;
+  }
+
+  /* ─── Tables ─── */
+  .admin-table th,
+  .admin-table td {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  thead th,
+  tbody td {
+    padding: 8px 10px;
+  }
+
+  /* ─── Footer ─── */
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .footer-links {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  /* ─── CTA banner ─── */
+  .cta-banner {
+    padding: 40px 24px;
+    border-radius: 20px;
+    margin: 40px 16px;
+  }
+
+  .cta-banner h2 {
+    font-size: 24px;
+  }
+
+  /* ─── Modals ─── */
+  .modal-content {
+    max-width: 95%;
+    margin: 16px;
+  }
+
+  .modal-header {
+    padding: 16px;
+  }
+
+  .modal-body {
+    padding: 16px;
+  }
+
+  .modal-footer {
+    padding: 16px;
+  }
+
+  /* ─── Auth card ─── */
+  .auth-card {
+    max-width: 100%;
+    padding: 24px 20px;
+    margin: 16px;
+    border-radius: 16px;
+  }
+
+  .auth-header h1 {
+    font-size: 22px;
+  }
+
+  /* ─── Job cards ─── */
+  .filters-sidebar {
+    display: none;
+  }
+
+  .job-listing-container {
+    padding: 16px;
+  }
+
+  .conversations-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* ─── Section padding ─── */
+  .section {
+    padding: 48px 0;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  /* ─── Section titles ─── */
+  .section-title {
+    font-size: 24px;
+  }
+
+  .section-sub {
+    font-size: 14px;
+    margin-bottom: 32px;
+  }
+
+  /* ─── Toast notifications ─── */
+  .toast-container {
+    right: 12px;
+    left: 12px;
+    top: 12px;
+  }
+
+  .toast {
+    min-width: auto;
+    width: 100%;
+    font-size: 13px;
+  }
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE — PETIT MOBILE (max 480px)
+   ══════════════════════════════════════ */
+@media (max-width: 480px) {
+
+  body {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .hero-premium h1 {
+    font-size: 28px;
+  }
+
+  /* Stats en 1 col */
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-stat-card {
+    padding: 16px;
+  }
+
+  .admin-stat-info .value {
+    font-size: 24px;
+  }
+
+  /* Navbar sidebar : icônes seulement */
+  .sidebar-modern .nav-item,
+  .sidebar-candidate .nav-item,
+  .sidebar-entreprise .nav-item,
+  .sidebar-recruteur .nav-item {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  /* Footer 1 col */
+  .footer-links {
+    grid-template-columns: 1fr;
+  }
+
+  /* Forms */
+  .form-card {
+    padding: 24px 16px;
+  }
+
+  .form-title {
+    font-size: 22px;
+  }
+
+  /* Messagerie */
+  .conv-list {
+    height: 160px;
+  }
+
+  .conversations-sidebar {
+    max-height: 180px;
+  }
+
+  .chat-messages,
+  .chat-messages {
+    padding: 12px;
+  }
+
+  /* Steps */
+  .hero-stats {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+  }
+
+  .hero-cta .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* CTA */
+  .cta-banner {
+    padding: 32px 16px;
+    margin: 24px 8px;
+  }
+
+  /* Welcome banner */
+  .welcome-banner {
+    padding: 20px;
+  }
+
+  .welcome-banner h1 {
+    font-size: 20px;
+  }
+}
