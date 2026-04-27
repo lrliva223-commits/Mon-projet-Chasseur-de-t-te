@@ -1,248 +1,550 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Espace recruteur — Chasseur de tête</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
-  <style>
-    /* Style local pour le menu horizontal */
-    .top-nav {
-      background: #fff;
-      border-bottom: 1px solid var(--gray-100);
-      padding: 0 40px;
-      height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-    }
-    .nav-links-horizontal {
-      display: flex;
-      gap: 32px;
-      height: 100%;
-    }
-    .nav-item-h {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--gray-500);
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 14px;
-      position: relative;
-      transition: color 0.3s;
-    }
-    .nav-item-h:hover { color: var(--primary); }
-    .nav-item-h.active { color: var(--primary); font-weight: 600; }
-    .nav-item-h.active::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: var(--primary);
-      border-radius: 3px 3px 0 0;
-    }
-    .recruteur-main-content {
-      padding: 40px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Espace recruteur — Chasseur de tête</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <style>
+    /* ══════════════════════════════════════
+       RECRUTEUR — Layout corrigé
+       ══════════════════════════════════════ */
+
+    /* Reset du grid hérité par .dashboard-recruteur */
+    body.dashboard-recruteur {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background: #f1f5f9;
+    }
+
+    /* ── TOP NAV ── */
+    .top-nav {
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 0 32px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      flex-shrink: 0;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+
+    .top-nav .logo {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1e1b4b;
+      letter-spacing: -0.3px;
+      white-space: nowrap;
+    }
+
+    .nav-links-horizontal {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .nav-item-h {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #64748b;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 13.5px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      height: 38px;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .nav-item-h svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .nav-item-h:hover {
+      background: #f1f5f9;
+      color: #1e293b;
+    }
+
+    .nav-item-h.active {
+      background: #ede9fe;
+      color: #5b21b6;
+      font-weight: 600;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-right .btn {
+      height: 36px;
+      padding: 0 16px;
+      font-size: 13px;
+      border-radius: 8px;
+    }
+
+    /* ── MAIN CONTENT ── */
+    .recruteur-main-content {
+      flex: 1;
+      padding: 36px 40px;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      margin-bottom: 32px;
+    }
+
+    .page-header h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+
+    .page-header p {
+      font-size: 14px;
+      color: #94a3b8;
+      margin: 0;
+    }
+
+    /* ── STATS GRID ── */
+    .admin-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .admin-stat-card {
+      background: #fff;
+      padding: 24px 26px;
+      border-radius: 20px;
+      border: 1px solid rgba(0,0,0,0.04);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .admin-stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+    }
+
+    .admin-stat-info h3 {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #94a3b8;
+      margin-bottom: 10px;
+    }
+
+    .admin-stat-info .value {
+      font-size: 34px;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1;
+    }
+
+    .admin-stat-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .admin-stat-icon svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .icon-blue  { background: #e0f2fe; color: #0284c7; }
+    .icon-purple{ background: #f3e8ff; color: #7c3aed; }
+    .icon-green { background: #dcfce7; color: #16a34a; }
+
+    /* ── SECTION CARD ── */
+    .admin-card {
+      background: #fff;
+      border-radius: 22px;
+      padding: 28px 30px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      border: 1px solid rgba(0,0,0,0.04);
+      margin-bottom: 24px;
+    }
+
+    .admin-table-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .admin-table-header h2 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    /* ── FORM NOUVELLE OFFRE ── */
+    #newOffreSection .form-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #475569;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    #newOffreSection .form-input {
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      background: #f8fafc;
+      height: 44px;
+      font-size: 14px;
+      padding: 0 14px;
+      width: 100%;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      outline: none;
+    }
+
+    #newOffreSection textarea.form-input {
+      height: auto;
+      padding: 12px 14px;
+      resize: vertical;
+    }
+
+    #newOffreSection .form-input:focus {
+      border-color: #7c3aed;
+      box-shadow: 0 0 0 3px rgba(124,58,237,0.1);
+      background: #fff;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    /* ── KANBAN ── */
+    .kanban {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .kanban-col {
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 16px;
+      min-height: 380px;
+      border: 1px solid #f1f5f9;
+    }
+
+    .kanban-col-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #64748b;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .kanban-card {
+      background: #fff;
+      border: 1px solid #f1f5f9;
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 10px;
+      cursor: grab;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      transition: box-shadow 0.15s;
+    }
+
+    .kanban-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+
+    /* ── PIPELINE SELECT ── */
+    #offreSelect {
+      height: 38px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 0 12px;
+      font-size: 13px;
+      background: #f8fafc;
+    }
+
+    /* ── MODAL ── */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active { display: flex; }
+
+    .modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(15,23,42,0.45);
+      cursor: pointer;
+    }
+
+    .modal-content {
+      position: relative;
+      z-index: 1;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      width: 480px;
+      max-width: 90vw;
+      padding: 32px;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center;
+      padding: 52px 20px;
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .admin-stats-grid { grid-template-columns: 1fr 1fr; }
+      .kanban { grid-template-columns: repeat(2, 1fr); }
+      .recruteur-main-content { padding: 24px 20px; }
+    }
+
+    @media (max-width: 640px) {
+      .admin-stats-grid { grid-template-columns: 1fr; }
+      .nav-links-horizontal { display: none; }
+      .kanban { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .top-nav { padding: 0 16px; }
+    }
+  </style>
 </head>
-<body class="dashboard-recruteur" style="background: #f8fafc;">
+<body class="dashboard-recruteur">
 
-  <!-- ════════ TOP NAVIGATION (HORIZONTAL) ════════ -->
-  <header class="top-nav">
-    <div class="flex items-center gap-8">
-      <a href="index.html" class="logo" style="font-size: 18px;"><i>CHASSEUR DE TÊTE</i></a>
-      
-      <nav class="nav-links-horizontal">
-        <a href="#" class="nav-item-h active" id="nav-overview" onclick="showSection('offresSection')">
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
-          <span>Tableau de bord</span>
-        </a>
-        <a href="#" class="nav-item-h" id="nav-alloffres" onclick="showSection('allOffresSection')">
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-          <span>Toutes les offres</span>
-        </a>
-        <a href="#" class="nav-item-h" id="nav-pipeline" onclick="showSection('pipelineSection')">
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-          <span>Pipeline</span>
-        </a>
-        <a href="messagerie.html" class="nav-item-h">
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>
-          <span>Messagerie</span>
-        </a>
-      </nav>
-    </div>
+  <!-- ════════ TOP NAVIGATION ════════ -->
+  <header class="top-nav">
+    <div class="nav-left">
+      <a href="index.html" class="logo"><i>CHASSEUR DE TÊTE</i></a>
 
-    <div class="flex items-center gap-4">
-      <button class="btn btn-primary btn-sm" onclick="showSection('newOffreSection')">+ Mission</button>
-      <button class="btn btn-outline btn-sm" onclick="logout()">Déconnexion</button>
-    </div>
-  </header>
+      <nav class="nav-links-horizontal">
+        <a href="#" class="nav-item-h active" id="nav-overview" onclick="showSection('offresSection'); return false;">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          Tableau de bord
+        </a>
+        <a href="#" class="nav-item-h" id="nav-alloffres" onclick="showSection('allOffresSection'); return false;">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          Toutes les offres
+        </a>
+        <a href="#" class="nav-item-h" id="nav-pipeline" onclick="showSection('pipelineSection'); return false;">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          Pipeline
+        </a>
+        <a href="messagerie.html" class="nav-item-h">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+          Messagerie
+        </a>
+      </nav>
+    </div>
 
-  <!-- ════════ MAIN CONTENT ════════ -->
-  <main class="recruteur-main-content">
-    
-    <header style="margin-bottom: 32px;">
-      <h1 id="welcomeTitle" style="font-size: 24px; font-weight: 800;">Espace Recruteur</h1>
-      <p class="text-muted">Gérez vos talents et vos missions de recrutement</p>
-    </header>
+    <div class="nav-right">
+      <button class="btn btn-primary" onclick="showSection('newOffreSection')">+ Mission</button>
+      <button class="btn btn-outline" onclick="logout()">Déconnexion</button>
+    </div>
+  </header>
 
-    <!-- Stats -->
-    <div class="admin-stats-grid" id="statsGrid">
-      <div class="admin-stat-card">
-        <div class="admin-stat-info">
-          <h3>Missions actives</h3>
-          <div class="value" id="sOffres">—</div>
-        </div>
-        <div class="admin-stat-icon icon-blue">
-          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="26" height="26"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-        </div>
-      </div>
-      <div class="admin-stat-card">
-        <div class="admin-stat-info">
-          <h3>Talents captés</h3>
-          <div class="value" id="sCandidatures">—</div>
-        </div>
-        <div class="admin-stat-icon icon-purple">
-          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="26" height="26"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-        </div>
-      </div>
-      <div class="admin-stat-card">
-        <div class="admin-stat-info">
-          <h3>Total missions</h3>
-          <div class="value" id="sTotal">—</div>
-        </div>
-        <div class="admin-stat-icon icon-green">
-          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="26" height="26"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-        </div>
-      </div>
-    </div>
+  <!-- ════════ MAIN ════════ -->
+  <main class="recruteur-main-content">
 
-    <!-- Section : liste offres -->
-    <div id="offresSection" class="admin-card">
-      <div class="admin-table-header">
-        <h2>Mes missions en cours</h2>
-      </div>
-      <div id="offresList">
-        <p class="empty-state">Chargement…</p>
-      </div>
-    </div>
+    <!-- Header page -->
+    <div class="page-header">
+      <h1 id="welcomeTitle">Tableau de bord</h1>
+      <p>Gérez vos talents et vos missions de recrutement</p>
+    </div>
 
-    <!-- Section : nouvelle offre -->
-    <div id="newOffreSection" class="admin-card glass" style="display:none; margin-top: 24px;">
-      <div class="admin-table-header">
-        <h2>Publier une nouvelle mission</h2>
-      </div>
-      <form id="newOffreForm" style="display:grid; gap:20px">
-        <div class="form-floating">
-          <label class="form-label">Intitulé du poste *</label>
-          <input class="form-input" id="of-titre" type="text" placeholder="ex : Consultant SAP Senior" required />
-        </div>
-        <div class="form-floating">
-          <label class="form-label">Description détaillée *</label>
-          <textarea class="form-input" id="of-desc" rows="5" placeholder="Décrivez le besoin client..." required></textarea>
-        </div>
-        <div class="grid-2" style="gap:20px">
-          <div class="form-floating">
-            <label class="form-label">Localisation</label>
-            <input class="form-input" id="of-loc" type="text" placeholder="Paris, Remote…" />
-          </div>
-          <div class="form-floating">
-            <label class="form-label">Type de contrat</label>
-            <select class="form-input" id="of-type">
-              <option>CDI</option><option>CDD</option><option>Freelance</option><option>Stage</option><option>Alternance</option>
-            </select>
-          </div>
-        </div>
-        <div class="grid-2" style="gap:20px">
-          <div class="form-floating">
-            <label class="form-label">Salaire min (MGA)</label>
-            <input class="form-input" id="of-salmin" type="number" placeholder="40" />
-          </div>
-          <div class="form-floating">
-            <label class="form-label">Salaire max (MGA)</label>
-            <input class="form-input" id="of-salmax" type="number" placeholder="70" />
-          </div>
-        </div>
-        <div style="display:flex; gap:12px; margin-top: 10px;">
-          <button type="submit" class="btn btn-primary" id="offreSaveBtn">Lancer la mission</button>
-          <button type="button" class="btn btn-outline" onclick="showSection('offresSection')">Annuler</button>
-        </div>
-      </form>
-    </div>
+    <!-- Stats -->
+    <div class="admin-stats-grid" id="statsGrid">
+      <div class="admin-stat-card">
+        <div class="admin-stat-info">
+          <h3>Missions actives</h3>
+          <div class="value" id="sOffres">—</div>
+        </div>
+        <div class="admin-stat-icon icon-blue">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        </div>
+      </div>
+      <div class="admin-stat-card">
+        <div class="admin-stat-info">
+          <h3>Talents captés</h3>
+          <div class="value" id="sCandidatures">—</div>
+        </div>
+        <div class="admin-stat-icon icon-purple">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+        </div>
+      </div>
+      <div class="admin-stat-card">
+        <div class="admin-stat-info">
+          <h3>Total missions</h3>
+          <div class="value" id="sTotal">—</div>
+        </div>
+        <div class="admin-stat-icon icon-green">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        </div>
+      </div>
+    </div>
 
-    <!-- Section : pipeline kanban -->
-    <div id="pipelineSection" style="display:none; margin-top: 24px;">
-      <div class="admin-card">
-        <div class="admin-table-header">
-          <h2>Pipeline de recrutement</h2>
-          <select class="form-input" id="offreSelect" style="width:280px" onchange="loadPipeline(this.value)">
-            <option value="">Sélectionner une mission…</option>
-          </select>
-        </div>
-        <div class="kanban" id="kanban" style="margin-top: 24px;">
-          <p class="empty-state">Choisissez une mission pour visualiser le tunnel de conversion.</p>
-        </div>
-      </div>
-    </div>
+    <!-- Section : missions en cours -->
+    <div id="offresSection" class="admin-card">
+      <div class="admin-table-header">
+        <h2>Mes missions en cours</h2>
+      </div>
+      <div id="offresList">
+        <p class="empty-state">Chargement…</p>
+      </div>
+    </div>
 
-    <!-- Section : toutes les offres de la plateforme -->
-    <div id="allOffresSection" class="admin-card" style="display:none; margin-top: 24px;">
-      <div class="admin-table-header">
-        <h2>Toutes les offres de la plateforme</h2>
-      </div>
-      <div id="allOffresList">
-        <p class="empty-state">Cliquez sur "Toutes les offres" pour charger…</p>
-      </div>
-    </div>
+    <!-- Section : nouvelle offre -->
+    <div id="newOffreSection" class="admin-card" style="display:none;">
+      <div class="admin-table-header">
+        <h2>Publier une nouvelle mission</h2>
+      </div>
+      <form id="newOffreForm" style="display:grid; gap:20px;">
+        <div>
+          <label class="form-label">Intitulé du poste *</label>
+          <input class="form-input" id="of-titre" type="text" placeholder="ex : Consultant SAP Senior" required />
+        </div>
+        <div>
+          <label class="form-label">Description détaillée *</label>
+          <textarea class="form-input" id="of-desc" rows="5" placeholder="Décrivez le besoin client..." required></textarea>
+        </div>
+        <div class="grid-2">
+          <div>
+            <label class="form-label">Localisation</label>
+            <input class="form-input" id="of-loc" type="text" placeholder="Antananarivo, Remote…" />
+          </div>
+          <div>
+            <label class="form-label">Type de contrat</label>
+            <select class="form-input" id="of-type">
+              <option>CDI</option><option>CDD</option><option>Freelance</option><option>Stage</option><option>Alternance</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div>
+            <label class="form-label">Salaire min (MGA)</label>
+            <input class="form-input" id="of-salmin" type="number" placeholder="400 000" />
+          </div>
+          <div>
+            <label class="form-label">Salaire max (MGA)</label>
+            <input class="form-input" id="of-salmax" type="number" placeholder="700 000" />
+          </div>
+        </div>
+        <div style="display:flex; gap:12px; padding-top:4px;">
+          <button type="submit" class="btn btn-primary" id="offreSaveBtn">Lancer la mission</button>
+          <button type="button" class="btn btn-outline" onclick="showSection('offresSection')">Annuler</button>
+        </div>
+      </form>
+    </div>
 
-  </main>
+    <!-- Section : pipeline kanban -->
+    <div id="pipelineSection" style="display:none;">
+      <div class="admin-card">
+        <div class="admin-table-header">
+          <h2>Pipeline de recrutement</h2>
+          <select id="offreSelect" onchange="loadPipeline(this.value)">
+            <option value="">Sélectionner une mission…</option>
+          </select>
+        </div>
+        <div class="kanban" id="kanban">
+          <p class="empty-state">Choisissez une mission pour visualiser le tunnel de conversion.</p>
+        </div>
+      </div>
+    </div>
 
-  <!-- ════════ MODAL MESSAGE ════════ -->
-  <div id="messageModal" class="modal">
-    <div class="modal-overlay" onclick="closeMessageModal()"></div>
-    <div class="modal-content" style="width: 500px; padding: 32px;">
-      <div class="modal-header" style="margin-bottom: 24px; border:none; padding:0">
-        <h2 style="font-size: 20px; font-weight: 800;">Envoyer un message</h2>
-        <button class="modal-close" onclick="closeMessageModal()">✕</button>
-      </div>
-      <div class="modal-body" style="padding:0">
-        <p class="text-muted mb-4" id="messageDestName" style="font-size: 14px;"></p>
-        <div class="form-group mb-4">
-          <label class="form-label">Votre message</label>
-          <textarea id="messageText" class="form-input" rows="5" placeholder="Écrivez votre message ici..." style="height: auto; padding: 12px;"></textarea>
-        </div>
-        <div class="modal-footer" style="margin-top: 24px; border-top: 1px solid var(--gray-100); padding: 24px 0 0; background:none">
-          <button type="button" class="btn btn-outline" onclick="closeMessageModal()" style="flex:1">Annuler</button>
-          <button type="button" class="btn btn-primary" id="btnSendMessage" onclick="confirmSendMessage()" style="flex:2">Envoyer</button>
-        </div>
-      </div>
-    </div>
-  </div>
+    <!-- Section : toutes les offres -->
+    <div id="allOffresSection" class="admin-card" style="display:none;">
+      <div class="admin-table-header">
+        <h2>Toutes les offres de la plateforme</h2>
+      </div>
+      <div id="allOffresList">
+        <p class="empty-state">Cliquez sur "Toutes les offres" pour charger…</p>
+      </div>
+    </div>
 
-  <script src="main.js"></script>
-  <script src="dashboard-recruteur.js"></script>
-  <script>
-    const originalShowSection = window.showSection;
-    window.showSection = function(id) {
-      if (typeof originalShowSection === 'function') originalShowSection(id);
-      document.querySelectorAll('.nav-item-h').forEach(nav => {
-        nav.classList.remove('active');
-        if (id === 'offresSection' && nav.id === 'nav-overview') nav.classList.add('active');
-        if (id === 'allOffresSection' && nav.id === 'nav-alloffres') nav.classList.add('active');
-        if (id === 'pipelineSection' && nav.id === 'nav-pipeline') nav.classList.add('active');
-      });
-    };
-  </script>
+  </main>
+
+  <!-- ════════ MODAL MESSAGE ════════ -->
+  <div id="messageModal" class="modal">
+    <div class="modal-overlay" onclick="closeMessageModal()"></div>
+    <div class="modal-content">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <h2 style="font-size:18px; font-weight:800; color:#0f172a;">Envoyer un message</h2>
+        <button class="modal-close" onclick="closeMessageModal()">✕</button>
+      </div>
+      <p class="text-muted" id="messageDestName" style="font-size:13px; margin-bottom:16px;"></p>
+      <div style="margin-bottom:20px;">
+        <label class="form-label" style="font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:#475569; display:block; margin-bottom:8px;">Votre message</label>
+        <textarea id="messageText" class="form-input" rows="5" placeholder="Écrivez votre message ici..." style="border:1px solid #e2e8f0; border-radius:10px; padding:12px 14px; width:100%; resize:vertical; font-size:14px; background:#f8fafc; outline:none;"></textarea>
+      </div>
+      <div style="display:flex; gap:10px; padding-top:16px; border-top:1px solid #f1f5f9;">
+        <button type="button" class="btn btn-outline" onclick="closeMessageModal()" style="flex:1;">Annuler</button>
+        <button type="button" class="btn btn-primary" id="btnSendMessage" onclick="confirmSendMessage()" style="flex:2;">Envoyer</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+  <script src="dashboard-recruteur.js"></script>
+  <script>
+    /* Sync nav active state avec showSection */
+    const _orig = window.showSection;
+    window.showSection = function(id) {
+      if (typeof _orig === 'function') _orig(id);
+      document.querySelectorAll('.nav-item-h').forEach(n => n.classList.remove('active'));
+      const map = {
+        offresSection: 'nav-overview',
+        allOffresSection: 'nav-alloffres',
+        pipelineSection: 'nav-pipeline'
+      };
+      if (map[id]) document.getElementById(map[id])?.classList.add('active');
+    };
+  </script>
 </body>
 </html>
