@@ -6,90 +6,110 @@
   <title>Espace recruteur — Chasseur de tête</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+
   <style>
-    /* Style local pour le menu horizontal */
+    /* ===== SIDEBAR ===== */
     .top-nav {
-      background: #fff;
-      border-bottom: 1px solid var(--gray-100);
-      padding: 0 40px;
-      height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
+      position: fixed;
       top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+      left: 0;
+      width: 240px;
+      height: 100vh;
+      background: #fff;
+      border-right: 1px solid var(--gray-100);
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      gap: 20px;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.02);
     }
+
+    .logo {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    /* Navigation verticale */
     .nav-links-horizontal {
       display: flex;
-      gap: 32px;
-      height: 100%;
+      flex-direction: column;
+      gap: 16px;
     }
+
     .nav-item-h {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       color: var(--gray-500);
       text-decoration: none;
       font-weight: 500;
       font-size: 14px;
-      position: relative;
-      transition: color 0.3s;
+      padding: 10px;
+      border-radius: 8px;
+      transition: all 0.3s;
     }
-    .nav-item-h:hover { color: var(--primary); }
-    .nav-item-h.active { color: var(--primary); font-weight: 600; }
-    .nav-item-h.active::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: var(--primary);
-      border-radius: 3px 3px 0 0;
+
+    .nav-item-h:hover {
+      background: #f1f5f9;
+      color: var(--primary);
     }
+
+    .nav-item-h.active {
+      background: #eef2ff;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* Boutons en bas */
+    .nav-bottom {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* Contenu principal */
     .recruteur-main-content {
+      margin-left: 260px;
       padding: 40px;
       max-width: 1200px;
-      margin: 0 auto;
     }
   </style>
 </head>
+
 <body class="dashboard-recruteur" style="background: #f8fafc;">
 
-  <!-- ════════ TOP NAVIGATION (HORIZONTAL) ════════ -->
+  <!-- ===== SIDEBAR ===== -->
   <header class="top-nav">
-    <div class="flex items-center gap-8">
-      <a href="index.html" class="logo" style="font-size: 18px;"><i>CHASSEUR DE TÊTE</i></a>
-      
-      <nav class="nav-links-horizontal">
-        <a href="#" class="nav-item-h active" id="nav-overview" onclick="showSection('offresSection')">
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
-          <span>Tableau de bord</span>
-        </a>
-        <a href="#" class="nav-item-h" id="nav-alloffres" onclick="showSection('allOffresSection')">
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-          <span>Toutes les offres</span>
-        </a>
-        <a href="#" class="nav-item-h" id="nav-pipeline" onclick="showSection('pipelineSection')">
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-          <span>Pipeline</span>
-        </a>
-        <a href="messagerie.html" class="nav-item-h">
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>
-          <span>Messagerie</span>
-        </a>
-      </nav>
-    </div>
 
-    <div class="flex items-center gap-4">
+    <a href="index.html" class="logo"><i>CHASSEUR DE TÊTE</i></a>
+
+    <nav class="nav-links-horizontal">
+      <a href="#" class="nav-item-h active" id="nav-overview" onclick="showSection('offresSection')">
+        <span>Tableau de bord</span>
+      </a>
+
+      <a href="#" class="nav-item-h" id="nav-alloffres" onclick="showSection('allOffresSection')">
+        <span>Toutes les offres</span>
+      </a>
+
+      <a href="#" class="nav-item-h" id="nav-pipeline" onclick="showSection('pipelineSection')">
+        <span>Pipeline</span>
+      </a>
+
+      <a href="messagerie.html" class="nav-item-h">
+        <span>Messagerie</span>
+      </a>
+    </nav>
+
+    <div class="nav-bottom">
       <button class="btn btn-primary btn-sm" onclick="showSection('newOffreSection')">+ Mission</button>
       <button class="btn btn-outline btn-sm" onclick="logout()">Déconnexion</button>
     </div>
+
   </header>
 
-  <!-- ════════ MAIN CONTENT ════════ -->
+  <!-- ===== MAIN CONTENT ===== -->
   <main class="recruteur-main-content">
     
     <header style="margin-bottom: 32px;">
@@ -104,145 +124,72 @@
           <h3>Missions actives</h3>
           <div class="value" id="sOffres">—</div>
         </div>
-        <div class="admin-stat-icon icon-blue">
-          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="26" height="26"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-        </div>
       </div>
+
       <div class="admin-stat-card">
         <div class="admin-stat-info">
           <h3>Talents captés</h3>
           <div class="value" id="sCandidatures">—</div>
         </div>
-        <div class="admin-stat-icon icon-purple">
-          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="26" height="26"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-        </div>
       </div>
+
       <div class="admin-stat-card">
         <div class="admin-stat-info">
           <h3>Total missions</h3>
           <div class="value" id="sTotal">—</div>
         </div>
-        <div class="admin-stat-icon icon-green">
-          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="26" height="26"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-        </div>
       </div>
     </div>
 
-    <!-- Section : liste offres -->
+    <!-- Offres -->
     <div id="offresSection" class="admin-card">
-      <div class="admin-table-header">
-        <h2>Mes missions en cours</h2>
-      </div>
+      <h2>Mes missions en cours</h2>
       <div id="offresList">
         <p class="empty-state">Chargement…</p>
       </div>
     </div>
 
-    <!-- Section : nouvelle offre -->
-    <div id="newOffreSection" class="admin-card glass" style="display:none; margin-top: 24px;">
-      <div class="admin-table-header">
-        <h2>Publier une nouvelle mission</h2>
-      </div>
-      <form id="newOffreForm" style="display:grid; gap:20px">
-        <div class="form-floating">
-          <label class="form-label">Intitulé du poste *</label>
-          <input class="form-input" id="of-titre" type="text" placeholder="ex : Consultant SAP Senior" required />
-        </div>
-        <div class="form-floating">
-          <label class="form-label">Description détaillée *</label>
-          <textarea class="form-input" id="of-desc" rows="5" placeholder="Décrivez le besoin client..." required></textarea>
-        </div>
-        <div class="grid-2" style="gap:20px">
-          <div class="form-floating">
-            <label class="form-label">Localisation</label>
-            <input class="form-input" id="of-loc" type="text" placeholder="Paris, Remote…" />
-          </div>
-          <div class="form-floating">
-            <label class="form-label">Type de contrat</label>
-            <select class="form-input" id="of-type">
-              <option>CDI</option><option>CDD</option><option>Freelance</option><option>Stage</option><option>Alternance</option>
-            </select>
-          </div>
-        </div>
-        <div class="grid-2" style="gap:20px">
-          <div class="form-floating">
-            <label class="form-label">Salaire min (MGA)</label>
-            <input class="form-input" id="of-salmin" type="number" placeholder="40" />
-          </div>
-          <div class="form-floating">
-            <label class="form-label">Salaire max (MGA)</label>
-            <input class="form-input" id="of-salmax" type="number" placeholder="70" />
-          </div>
-        </div>
-        <div style="display:flex; gap:12px; margin-top: 10px;">
-          <button type="submit" class="btn btn-primary" id="offreSaveBtn">Lancer la mission</button>
-          <button type="button" class="btn btn-outline" onclick="showSection('offresSection')">Annuler</button>
-        </div>
+    <!-- Nouvelle offre -->
+    <div id="newOffreSection" class="admin-card" style="display:none;">
+      <h2>Publier une mission</h2>
+      <form id="newOffreForm">
+        <input id="of-titre" type="text" placeholder="Titre" required />
+        <textarea id="of-desc" placeholder="Description" required></textarea>
+        <button type="submit">Publier</button>
       </form>
     </div>
 
-    <!-- Section : pipeline kanban -->
-    <div id="pipelineSection" style="display:none; margin-top: 24px;">
-      <div class="admin-card">
-        <div class="admin-table-header">
-          <h2>Pipeline de recrutement</h2>
-          <select class="form-input" id="offreSelect" style="width:280px" onchange="loadPipeline(this.value)">
-            <option value="">Sélectionner une mission…</option>
-          </select>
-        </div>
-        <div class="kanban" id="kanban" style="margin-top: 24px;">
-          <p class="empty-state">Choisissez une mission pour visualiser le tunnel de conversion.</p>
-        </div>
-      </div>
+    <!-- Pipeline -->
+    <div id="pipelineSection" style="display:none;">
+      <h2>Pipeline</h2>
+      <div id="kanban"></div>
     </div>
 
-    <!-- Section : toutes les offres de la plateforme -->
-    <div id="allOffresSection" class="admin-card" style="display:none; margin-top: 24px;">
-      <div class="admin-table-header">
-        <h2>Toutes les offres de la plateforme</h2>
-      </div>
-      <div id="allOffresList">
-        <p class="empty-state">Cliquez sur "Toutes les offres" pour charger…</p>
-      </div>
+    <!-- Toutes les offres -->
+    <div id="allOffresSection" style="display:none;">
+      <h2>Toutes les offres</h2>
+      <div id="allOffresList"></div>
     </div>
 
   </main>
 
-  <!-- ════════ MODAL MESSAGE ════════ -->
-  <div id="messageModal" class="modal">
-    <div class="modal-overlay" onclick="closeMessageModal()"></div>
-    <div class="modal-content" style="width: 500px; padding: 32px;">
-      <div class="modal-header" style="margin-bottom: 24px; border:none; padding:0">
-        <h2 style="font-size: 20px; font-weight: 800;">Envoyer un message</h2>
-        <button class="modal-close" onclick="closeMessageModal()">✕</button>
-      </div>
-      <div class="modal-body" style="padding:0">
-        <p class="text-muted mb-4" id="messageDestName" style="font-size: 14px;"></p>
-        <div class="form-group mb-4">
-          <label class="form-label">Votre message</label>
-          <textarea id="messageText" class="form-input" rows="5" placeholder="Écrivez votre message ici..." style="height: auto; padding: 12px;"></textarea>
-        </div>
-        <div class="modal-footer" style="margin-top: 24px; border-top: 1px solid var(--gray-100); padding: 24px 0 0; background:none">
-          <button type="button" class="btn btn-outline" onclick="closeMessageModal()" style="flex:1">Annuler</button>
-          <button type="button" class="btn btn-primary" id="btnSendMessage" onclick="confirmSendMessage()" style="flex:2">Envoyer</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <script src="main.js"></script>
   <script src="dashboard-recruteur.js"></script>
+
   <script>
     const originalShowSection = window.showSection;
     window.showSection = function(id) {
       if (typeof originalShowSection === 'function') originalShowSection(id);
+
       document.querySelectorAll('.nav-item-h').forEach(nav => {
         nav.classList.remove('active');
+
         if (id === 'offresSection' && nav.id === 'nav-overview') nav.classList.add('active');
         if (id === 'allOffresSection' && nav.id === 'nav-alloffres') nav.classList.add('active');
         if (id === 'pipelineSection' && nav.id === 'nav-pipeline') nav.classList.add('active');
       });
     };
   </script>
+
 </body>
 </html>
