@@ -130,6 +130,34 @@ function requireAuth(role) {
   return true;
 }
 
+/* ─── Avatar helper ─────────────────────────────── */
+function renderAvatar(user, size = 42) {
+  if (!user) return `<div class="avatar" style="width:${size}px; height:${size}px">—</div>`;
+  
+  if (user.avatar_url) {
+    const url = fileUrl(user.avatar_url);
+    return `<div class="avatar" style="width:${size}px; height:${size}px; padding:0; overflow:hidden; border:2px solid #f1f5f9">
+              <img src="${url}" style="width:100%; height:100%; object-fit:cover" onerror="this.parentElement.innerHTML='${(user.prenom?.[0]||'')+(user.nom?.[0]||'').toUpperCase()}'">
+            </div>`;
+  }
+  
+  const initials = (user.prenom?.[0] || '') + (user.nom?.[0] || '');
+  return `<div class="avatar" style="width:${size}px; height:${size}px; font-size:${size/2.5}px">
+            ${initials.toUpperCase()}
+          </div>`;
+}
+
+async function updateSessionUser() {
+  try {
+    const data = await apiFetch('/users/me');
+    if (data.user) {
+      localStorage.setItem('user', JSON.stringify(data.user));
+      return data.user;
+    }
+  } catch (err) { console.error('Erreur sync user:', err); }
+  return auth.getUser();
+}
+
 /* ─── Export global ─────────────────────────────── */
-window.HH = { api: apiFetch, auth, Toast, validate, showError, clearErrors, formatDate, statutBadge, requireAuth, API_BASE };
+window.HH = { api: apiFetch, auth, Toast, validate, showError, clearErrors, formatDate, statutBadge, requireAuth, API_BASE, renderAvatar, updateSessionUser };
 window.logout = logout;
