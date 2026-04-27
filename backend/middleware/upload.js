@@ -8,6 +8,7 @@ const storage = multer.diskStorage({
     if (file.fieldname === 'cv') subfolder = 'cv';
     else if (file.fieldname === 'lm') subfolder = 'lm';
     else if (file.fieldname === 'demande') subfolder = 'demande';
+    else if (file.fieldname === 'avatar') subfolder = 'avatars';
     
     const dir = path.join(__dirname, '..', 'uploads', subfolder);
     if (!fs.existsSync(dir)){
@@ -27,11 +28,18 @@ const upload = multer({
   storage,
   limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
   fileFilter: (req, file, cb) => {
-    const allowedMimes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+    const allowedMimes = [
+      'application/pdf', 
+      'application/msword', 
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'image/jpeg',
+      'image/png',
+      'image/webp'
+    ];
     if (allowedMimes.includes(file.mimetype)) {
       cb(null, true);
     } else {
-      cb(new Error('Format de fichier non supporté. PDF, DOC, DOCX uniquement.'));
+      cb(new Error('Format de fichier non supporté. PDF, DOC, DOCX ou IMAGE (JPG, PNG, WEBP) uniquement.'));
     }
   }
 });
