@@ -707,6 +707,9 @@
 
     <div class="nav-right">
       <button class="btn btn-primary" onclick="showSection('newOffreSection')">+ Mission</button>
+      <a href="profil.html" id="userAvatarNav" style="display:flex; align-items:center; text-decoration:none">
+        <!-- Rendered by JS -->
+      </a>
       <button class="btn btn-outline" onclick="logout()">Déconnexion</button>
     </div>
   </header>
@@ -911,6 +914,17 @@
       };
       if (map[id]) document.getElementById(map[id])?.classList.add('active');
     };
+
+    // Init Avatar
+    (async function() {
+      try {
+        const u = await HH.updateSessionUser();
+        const avatarNav = document.getElementById('userAvatarNav');
+        if (avatarNav) {
+          avatarNav.innerHTML = HH.renderAvatar(u, 38);
+        }
+      } catch(err) { console.error('Init error:', err); }
+    })();
   </script>
 </body>
 </html>
