@@ -13,11 +13,12 @@ const COLS = [
 
 // ─── Navigation sections ──────────────────────────
 function showSection(id) {
-  ['offresSection','newOffreSection','pipelineSection','allOffresSection'].forEach(s => {
+  ['offresSection','newOffreSection','pipelineSection','allOffresSection','messagesSection'].forEach(s => {
     const el = document.getElementById(s);
     if (el) el.style.display = s === id ? 'block' : 'none';
   });
   if (id === 'allOffresSection') loadAllPlatformOffres();
+  if (id === 'messagesSection') loadConversations();
 }
 
 // ─── Charger MES offres (recruteur) ───────────────
@@ -276,6 +277,153 @@ async function confirmSendMessage() {
     btn.disabled = false;
     btn.textContent = 'Envoyer';
   }
+}
+
+// ─── Messagerie professionnelle ───────────────────
+let recCurrentConv = null;
+let recConvsMap = {};
+let recPollInterval = null;
+
+async function loadConversations() {
+  const list = document.getElementById('recConvList');
+  const countEl = document.getElementById('recConvCount');
+  try {
+    const data = await HH.api('/messages/conversations');
+    const convs = data.conversations || [];
+    recConvsMap = {};
+
+    if (countEl) countEl.textContent = convs.length;
+
+    if (!convs.length) {
+      list.innerHTML = '<p class="empty-state">Aucune conversation.<br><span style="font-size:12px;color:#94a3b8">Contactez un candidat depuis le Pipeline.</span></p>';
+      return;
+    }
+
+    list.innerHTML = convs.map(c => {
+      recConvsMap[c.id] = c;
+      const initials = (c.prenom?.[0] || '') + (c.nom?.[0] || '');
+      const isActive = recCurrentConv?.id === c.id;
+      const roleLabel = c.role === 'candidat' ? 'Candidat' : c.role === 'entreprise' ? 'Entreprise' : c.role;
+      return `
+        <div class="msg-conv-item ${isActive ? 'active' : ''}" onclick="recOpenChat('${c.id}')">
+          <div class="msg-conv-avatar">${initials}<span class="online-dot"></span></div>
+          <div class="msg-conv-info">
+            <div class="msg-conv-name">${c.prenom} ${c.nom}</div>
+            <span class="msg-conv-role-tag">${roleLabel}</span>
+            <div class="msg-conv-last">${c.dernier_message || '—'}</div>
+          </div>
+          <div class="msg-conv-meta">
+            <span class="msg-conv-time">${HH.formatDate(c.date_envoi)}</span>
+            ${c.non_lu > 0 ? `<span class="msg-unread-dot">${c.non_lu}</span>` : ''}
+          </div>
+        </div>
+      `;
+    }).join('');
+  } catch (err) {
+    list.innerHTML = '<p class="empty-state">Erreur de chargement.</p>';
+  }
+}
+
+async function recOpenChat(convId) {
+  const conv = recConvsMap[convId];
+  if (!conv) return;
+  recCurrentConv = conv;
+
+  document.getElementById('recChatDefault').style.display = 'none';
+  document.getElementById('recChatActive').style.display = 'flex';
+  document.getElementById('recChatName').textContent = `${conv.prenom} ${conv.nom}`;
+  document.getElementById('recChatAvatar').innerHTML = (conv.prenom?.[0] || '') + (conv.nom?.[0] || '') + '<span class="online-dot"></span>';
+  const roleLabel = conv.role === 'candidat' ? 'Candidat' : conv.role === 'entreprise' ? 'Entreprise' : conv.role;
+  document.getElementById('recChatRole').innerHTML = `<span class="status-dot"></span> ${roleLabel}`;
+
+  clearInterval(recPollInterval);
+  await recFetchMessages();
+  recPollInterval = setInterval(recFetchMessages, 4000);
+  loadConversations();
+}
+
+function recFormatMsgDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  return d.toLocaleString('fr-FR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+}
+
+function recGetDateLabel(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  const now = new Date();
+  const diffDays = Math.floor((now - d) / 86400000);
+  if (diffDays === 0) return "Aujourd'hui";
+  if (diffDays === 1) return 'Hier';
+  return d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+}
+
+async function recFetchMessages() {
+  if (!recCurrentConv) return;
+  try {
+    const data = await HH.api(`/messages/conversation/${recCurrentConv.id}`);
+    const msgs = data.messages || [];
+    const el = document.getElementById('recChatMessages');
+    const me = HH.auth.getUser();
+    const convName = `${recCurrentConv.prenom} ${recCurrentConv.nom}`;
+
+    let html = '';
+    let lastDate = '';
+    let lastSender = '';
+
+    msgs.forEach(m => {
+      const mine = m.expediteur_id === me?.id;
+      const dateLabel = recGetDateLabel(m.date_envoi);
+      const senderKey = mine ? 'mine' : 'theirs';
+
+      // Séparateur de date
+      if (dateLabel !== lastDate) {
+        html += `<div class="msg-date-separator">${dateLabel}</div>`;
+        lastDate = dateLabel;
+        lastSender = '';
+      }
+
+      // Label expéditeur (affiché quand le sender change)
+      if (senderKey !== lastSender) {
+        const label = mine ? 'Vous (Recruteur)' : convName;
+        html += `<div class="msg-sender-label ${mine ? 'mine' : 'theirs'}">${recEscapeHtml(label)}</div>`;
+        lastSender = senderKey;
+      }
+
+      html += `
+        <div class="msg-bubble-row ${mine ? 'mine' : 'theirs'}">
+          <div class="msg-bubble ${mine ? 'mine' : 'theirs'}">${recEscapeHtml(m.contenu)}</div>
+          <div class="msg-bubble-time" style="text-align:${mine ? 'right' : 'left'}">${recFormatMsgDate(m.date_envoi)}</div>
+        </div>
+      `;
+    });
+
+    el.innerHTML = html || '<p style="text-align:center;color:#94a3b8;font-size:13px;padding:40px 24px;line-height:1.6">Aucun message pour l\'instant.<br>Rédigez votre premier message professionnel ci-dessous.</p>';
+
+    el.scrollTop = el.scrollHeight;
+  } catch (err) { console.error('Erreur chargement messages', err); }
+}
+
+async function recSendChat() {
+  const input = document.getElementById('recChatInput');
+  const contenu = input.value.trim();
+  if (!contenu || !recCurrentConv) return;
+  input.value = '';
+
+  try {
+    await HH.api('/messages', {
+      method: 'POST',
+      body: JSON.stringify({ destinataire_id: recCurrentConv.id, contenu })
+    });
+    await recFetchMessages();
+    await loadConversations();
+  } catch (err) {
+    HH.Toast.error(err.message);
+  }
+}
+
+function recEscapeHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 // Init
