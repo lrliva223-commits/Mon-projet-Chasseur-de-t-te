@@ -82,7 +82,10 @@
         <h1 id="page-headline">Tableau de bord</h1>
         <p class="text-muted" id="page-subheadline">Gérez vos recrutements et votre image de marque</p>
       </div>
-      <div class="flex gap-3">
+      <div class="flex items-center gap-3">
+        <a href="profil.html" id="userAvatarNav" style="display:flex; align-items:center; text-decoration:none">
+          <!-- Rendered by JS -->
+        </a>
         <button class="btn btn-outline" onclick="refreshDashboard()">Actualiser</button>
       </div>
     </header>
@@ -677,6 +680,17 @@
     // Using global logout() from main.js
 
     showTab('overview');
+
+    // Init Avatar
+    (async function() {
+      try {
+        const u = await HH.updateSessionUser();
+        const avatarNav = document.getElementById('userAvatarNav');
+        if (avatarNav) {
+          avatarNav.innerHTML = HH.renderAvatar(u, 38);
+        }
+      } catch(err) { console.error('Init error:', err); }
+    })();
   </script>
 </body>
 
