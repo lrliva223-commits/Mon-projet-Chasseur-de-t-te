@@ -341,11 +341,224 @@
       font-size: 14px;
     }
 
+    /* ── MESSAGERIE INTÉGRÉE ── */
+    .msg-container {
+      display: flex;
+      background: #fff;
+      border-radius: 22px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      border: 1px solid rgba(0,0,0,0.04);
+      height: 520px;
+      overflow: hidden;
+    }
+
+    .msg-sidebar {
+      width: 300px;
+      border-right: 1px solid #f1f5f9;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .msg-sidebar-header {
+      padding: 18px 20px;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #64748b;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .msg-sidebar-list {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .msg-conv-item {
+      display: flex;
+      gap: 12px;
+      padding: 14px 20px;
+      cursor: pointer;
+      border-bottom: 1px solid #f8fafc;
+      transition: background 0.15s;
+    }
+
+    .msg-conv-item:hover { background: #f8fafc; }
+    .msg-conv-item.active { background: #ede9fe; }
+
+    .msg-conv-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #e0f2fe;
+      color: #0284c7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .msg-conv-info { flex: 1; min-width: 0; }
+
+    .msg-conv-name {
+      font-weight: 600;
+      font-size: 14px;
+      color: #1e293b;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .msg-conv-last {
+      font-size: 12px;
+      color: #94a3b8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 2px;
+    }
+
+    .msg-conv-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .msg-conv-time {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    .msg-unread-dot {
+      background: #ef4444;
+      color: #fff;
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+
+    .msg-chat {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .msg-chat-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .msg-chat-header .msg-conv-avatar {
+      width: 36px;
+      height: 36px;
+      font-size: 12px;
+    }
+
+    .msg-chat-name {
+      font-weight: 700;
+      font-size: 15px;
+      color: #0f172a;
+    }
+
+    .msg-chat-role {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    .msg-chat-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .msg-bubble-row {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .msg-bubble-row.mine { align-items: flex-end; }
+    .msg-bubble-row.theirs { align-items: flex-start; }
+
+    .msg-bubble {
+      padding: 10px 16px;
+      border-radius: 14px;
+      font-size: 14px;
+      max-width: 70%;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    .msg-bubble.mine {
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+      color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+
+    .msg-bubble.theirs {
+      background: #f1f5f9;
+      color: #1e293b;
+      border-bottom-left-radius: 4px;
+    }
+
+    .msg-bubble-time {
+      font-size: 11px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    .msg-chat-input {
+      padding: 16px 24px;
+      border-top: 1px solid #f1f5f9;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .msg-chat-input input {
+      flex: 1;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-size: 14px;
+      outline: none;
+      background: #f8fafc;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .msg-chat-input input:focus {
+      border-color: #7c3aed;
+      box-shadow: 0 0 0 3px rgba(124,58,237,0.1);
+      background: #fff;
+    }
+
+    .msg-chat-default {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+      gap: 12px;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .admin-stats-grid { grid-template-columns: 1fr 1fr; }
       .kanban { grid-template-columns: repeat(2, 1fr); }
       .recruteur-main-content { padding: 24px 20px; }
+      .msg-sidebar { width: 240px; }
     }
 
     @media (max-width: 640px) {
@@ -354,6 +567,8 @@
       .kanban { grid-template-columns: 1fr; }
       .grid-2 { grid-template-columns: 1fr; }
       .top-nav { padding: 0 16px; }
+      .msg-container { flex-direction: column; height: auto; }
+      .msg-sidebar { width: 100%; border-right: none; border-bottom: 1px solid #f1f5f9; max-height: 200px; }
     }
   </style>
 </head>
@@ -377,7 +592,7 @@
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
           Pipeline
         </a>
-        <a href="messagerie.html" class="nav-item-h">
+        <a href="#" class="nav-item-h" id="nav-messages" onclick="showSection('messagesSection'); return false;">
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
           Messagerie
         </a>
@@ -508,6 +723,44 @@
       </div>
     </div>
 
+    <!-- Section : messagerie intégrée -->
+    <div id="messagesSection" style="display:none;">
+      <div class="msg-container">
+        <!-- Sidebar conversations -->
+        <div class="msg-sidebar">
+          <div class="msg-sidebar-header">Mes conversations</div>
+          <div class="msg-sidebar-list" id="recConvList">
+            <p class="empty-state">Chargement…</p>
+          </div>
+        </div>
+
+        <!-- Chat window -->
+        <div class="msg-chat">
+          <div id="recChatDefault" class="msg-chat-default">
+            <svg width="56" height="56" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="opacity:0.2">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+            </svg>
+            <p style="font-size:14px">Sélectionnez une conversation</p>
+          </div>
+
+          <div id="recChatActive" style="display:none; flex-direction:column; height:100%;">
+            <div class="msg-chat-header">
+              <div class="msg-conv-avatar" id="recChatAvatar">?</div>
+              <div>
+                <div class="msg-chat-name" id="recChatName">—</div>
+                <div class="msg-chat-role" id="recChatRole">Candidat</div>
+              </div>
+            </div>
+            <div class="msg-chat-body" id="recChatMessages"></div>
+            <div class="msg-chat-input">
+              <input type="text" id="recChatInput" placeholder="Écrivez votre message…" onkeydown="if(event.key==='Enter') recSendChat()">
+              <button class="btn btn-primary" onclick="recSendChat()">Envoyer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </main>
 
   <!-- ════════ MODAL MESSAGE ════════ -->
@@ -541,7 +794,8 @@
       const map = {
         offresSection: 'nav-overview',
         allOffresSection: 'nav-alloffres',
-        pipelineSection: 'nav-pipeline'
+        pipelineSection: 'nav-pipeline',
+        messagesSection: 'nav-messages'
       };
       if (map[id]) document.getElementById(map[id])?.classList.add('active');
     };
