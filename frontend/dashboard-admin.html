@@ -66,7 +66,10 @@
         <h1 id="page-headline">Tableau de bord</h1>
         <p class="text-muted" id="page-subheadline">Bienvenue dans votre espace d'administration</p>
       </div>
-      <div class="flex gap-3">
+      <div class="flex items-center gap-3">
+        <a href="profil.html" id="userAvatarNav" style="display:flex; align-items:center; text-decoration:none">
+          <!-- Rendered by JS -->
+        </a>
         <button class="btn btn-outline" onclick="refreshDashboard()">
           <svg style="width:16px;height:16px" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
           Actualiser
@@ -465,6 +468,17 @@
     // Init
     loadStats();
     loadPending();
+
+    // Init Avatar
+    (async function() {
+      try {
+        const u = await HH.updateSessionUser();
+        const avatarNav = document.getElementById('userAvatarNav');
+        if (avatarNav) {
+          avatarNav.innerHTML = HH.renderAvatar(u, 38);
+        }
+      } catch(err) { console.error('Init error:', err); }
+    })();
   </script>
 </body>
 </html>
