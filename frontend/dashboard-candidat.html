@@ -338,20 +338,17 @@
       return tasks[status] || ['Aucune tâche'];
     }
 
-    // Load side avatar
+    // Load side avatar & Sync info
     (async function () {
-      const u = HH.auth.getUser();
-      if (!u) return;
       try {
-        const data = await HH.api('/candidats/profil');
-        const p = data.profil;
+        const u = await HH.updateSessionUser();
         const sideAvatar = document.getElementById('sideAvatar');
-        if (p?.avatar_url) {
-          sideAvatar.innerHTML = `<img src="${p.avatar_url}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
-        } else {
-          sideAvatar.textContent = (u.prenom?.[0] || '') + (u.nom?.[0] || '');
+        if (sideAvatar) {
+          sideAvatar.innerHTML = HH.renderAvatar(u, 80);
+          sideAvatar.style.padding = '0';
+          sideAvatar.style.overflow = 'hidden';
         }
-      } catch { }
+      } catch (err) { console.error('Erreur init dashboard:', err); }
     })();
 
     loadDashboard();
