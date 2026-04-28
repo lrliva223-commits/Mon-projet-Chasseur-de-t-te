@@ -10,15 +10,15 @@
 <body>
 
   <!-- ════════ NAVBAR ════════ -->
-  <nav class="navbar glass" style="position: fixed; top: 0; z-index: 1000; width: 100%;">
+  <nav class="navbar glass">
     <div class="container nav-inner">
-      <a href="index.html" class="logo" style="font-size: 20px; font-weight: 900;"><i>CHASSEUR DE TÊTE</i></a>
+      <a href="index.html" class="logo"><i>CHASSEUR DE TÊTE</i></a>
       <ul class="nav-links" id="navLinks">
         <li><a href="offres.html">Explorer les offres</a></li>
         <li><a href="#features">Services</a></li>
         <li id="navAuth">
-          <a href="login.html" class="btn btn-outline" style="border-radius: 100px; padding: 10px 24px;">Connexion</a>
-          <a href="register.html" class="btn btn-primary" style="border-radius: 100px; padding: 10px 24px;">Nous rejoindre</a>
+          <a href="login.html" class="btn btn-outline">Connexion</a>
+          <a href="register.html" class="btn btn-primary">Nous rejoindre</a>
         </li>
       </ul>
       <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
@@ -29,94 +29,138 @@
   <section class="hero-premium">
     <div class="container">
       <div class="hero-content">
-        <h1>Capturez les <span class="gradient-text">Meilleurs Talents</span> de demain</h1>
-        <p>Chasseur de tête-connecte les experts les plus qualifiés avec les entreprises les plus ambitieuses du marché.</p>
-        <div class="flex gap-4">
-          <a href="register.html?role=candidat" class="btn btn-primary btn-lg" style="border-radius: 100px;">Je suis un talent</a>
-          <a href="register.html?role=entreprise" class="btn btn-outline btn-lg" style="border-radius: 100px; color: white; border-color: white;">Je recrute</a>
+        <span class="section-tag">Recrutement 2.0</span>
+        <h1>Connectez-vous aux <span class="gradient-text">Talents d'Elite</span> de Madagascar</h1>
+        <p>La passerelle privilégiée entre les experts les plus qualifiés et les entreprises les plus ambitieuses du pays.</p>
+        <div class="hero-cta flex-center gap-4">
+          <a href="register.html?role=candidat" class="btn btn-primary btn-lg">Je suis un talent</a>
+          <a href="register.html?role=entreprise" class="btn btn-outline btn-lg">Je recrute</a>
         </div>
-      
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ TRUST SECTION ════════ -->
+  <section class="section" style="padding: 40px 0; border-top: 1px solid var(--gray-100); background: white;">
+    <div class="container">
+      <p class="text-center text-muted text-sm mb-6 uppercase tracking-widest font-bold">Ils recrutent sur la plateforme</p>
+      <div class="flex-center flex-wrap gap-12" style="opacity: 0.5; filter: grayscale(1);">
+         <span style="font-size: 24px; font-weight: 800;">TECHCO</span>
+         <span style="font-size: 24px; font-weight: 800;">FINANCE+</span>
+         <span style="font-size: 24px; font-weight: 800;">MADAGAS-IT</span>
+         <span style="font-size: 24px; font-weight: 800;">ELITE-SERVICES</span>
       </div>
     </div>
   </section>
 
   <!-- ════════ FEATURES ════════ -->
-  <section class="section" id="features" style="background: #f8fafc; padding: 100px 0;">
+  <section class="section" id="features" style="background: #fcfcfd; padding: 100px 0;">
     <div class="container text-center">
-      <span class="section-tag">Pourquoi nous ?</span>
-      <h2 class="section-title">Une expérience de recrutement <span class="candidate-accent">repensée</span></h2>
+      <span class="section-tag">Avantages</span>
+      <h2 class="section-title">Une expérience de recrutement <span class="gradient-text">optimisée</span></h2>
       <div class="feature-grid">
         <div class="feature-card">
           <div class="feature-icon">🎯</div>
-          <h3 style="margin-bottom: 12px;">Matching Précis</h3>
-          <p class="text-sm text-muted">Notre algorithme identifie les profils qui correspondent exactement à votre culture et vos besoins techniques.</p>
+          <h3>Matching Précis</h3>
+          <p class="text-sm text-muted">Notre algorithme intelligent identifie les profils qui correspondent exactement à votre culture et vos besoins techniques.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">⚡</div>
-          <h3 style="margin-bottom: 12px;">Rapidité d'Exécution</h3>
-          <p class="text-sm text-muted">Réduisez votre temps de recrutement par deux grâce à nos outils de gestion de pipeline intégrés.</p>
+          <h3>Rapidité d'Exécution</h3>
+          <p class="text-sm text-muted">Réduisez votre temps de recrutement par deux grâce à nos outils de gestion de pipeline intégrés et automatisés.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">🛡️</div>
-          <h3 style="margin-bottom: 12px;">Sécurité & Fiabilité</h3>
-          <p class="text-sm text-muted">Tous nos candidats et entreprises sont vérifiés pour garantir des échanges sérieux et qualitatifs.</p>
+          <h3>Vérification Garantie</h3>
+          <p class="text-sm text-muted">Tous nos candidats et entreprises passent par un processus de vérification pour garantir des échanges sérieux.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ════════ ENTREPRISES ════════ -->
-  <section class="section" style="padding: 100px 0;">
+  <!-- ════════ STATS SECTION ════════ -->
+  <section class="section" style="background: var(--brand-slate); color: white;">
+    <div class="container">
+      <div class="grid-4 text-center">
+        <div>
+          <div style="font-size: 48px; font-weight: 800; color: #34d399;">5000+</div>
+          <p style="opacity: 0.7;">Talents qualifiés</p>
+        </div>
+        <div>
+          <div style="font-size: 48px; font-weight: 800; color: #60a5fa;">200+</div>
+          <p style="opacity: 0.7;">Entreprises partenaires</p>
+        </div>
+        <div>
+          <div style="font-size: 48px; font-weight: 800; color: #fbbf24;">95%</div>
+          <p style="opacity: 0.7;">Taux de satisfaction</p>
+        </div>
+        <div>
+          <div style="font-size: 48px; font-weight: 800; color: #f87171;">48h</div>
+          <p style="opacity: 0.7;">Délai de réponse moyen</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ PARTENAIRES ════════ -->
+  <section class="section" style="padding: 100px 0; background: white;">
     <div class="container">
       <div class="flex justify-between items-end mb-10">
         <div>
-          <span class="section-tag">Partenaires</span>
-          <h2 class="section-title" style="margin-bottom: 0;">Ils nous font confiance</h2>
+          <span class="section-tag">Focus</span>
+          <h2 class="section-title" style="margin-bottom: 0;">Entreprises à la une</h2>
         </div>
-        <a href="offres.html" class="btn btn-outline" style="border-radius: 100px;">Voir toutes les opportunités →</a>
+        <a href="offres.html" class="btn btn-outline">Explorer toutes les offres →</a>
       </div>
-      <div class="admin-stats-grid" id="companiesGrid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+      <div class="admin-stats-grid" id="companiesGrid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
         <p class="empty-state">Chargement des partenaires…</p>
       </div>
     </div>
   </section>
 
   <!-- ════════ CTA BANNER ════════ -->
-  <section class="container">
+  <section class="container" style="padding: 0 20px;">
     <div class="cta-banner">
-      <h2 style="font-size: 36px; font-weight: 800; margin-bottom: 16px;">Prêt à donner un nouvel élan à votre carrière ?</h2>
-      <p style="opacity: 0.8; margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto;">Rejoignez des milliers de professionnels et d'entreprises qui ont déjà trouvé leur match parfait.</p>
-      <a href="register.html" class="btn btn-primary btn-lg" style="background: white; color: var(--primary); border-radius: 100px; font-weight: 700;">Commencer gratuitement</a>
+      <h2 style="font-size: 42px; font-weight: 900; margin-bottom: 24px; color: white;">Prêt à transformer votre avenir ?</h2>
+      <p style="opacity: 0.8; margin-bottom: 40px; max-width: 650px; margin-left: auto; margin-right: auto; font-size: 18px;">Que vous soyez un expert en quête de défis ou une entreprise cherchant l'excellence, nous sommes là pour vous.</p>
+      <a href="register.html" class="btn btn-lg" style="background: white; color: var(--brand-indigo); font-weight: 800; padding: 16px 40px; border-radius: 100px;">Démarrer maintenant</a>
     </div>
   </section>
 
   <!-- ════════ FOOTER ════════ -->
-  <footer class="footer" style="background: #0f172a; color: white; padding: 80px 0 40px;">
+  <footer class="footer" style="background: #0f172a; color: white; padding: 100px 0 40px;">
     <div class="container">
-      <div class="grid-4" style="gap: 40px;">
+      <div class="grid-4" style="gap: 60px;">
         <div style="grid-column: span 2;">
-          <a href="#" class="logo" style="color: white; font-size: 24px;"><i>CHASSEUR DE TÊTE</i></a>
-          <p style="opacity: 0.6; margin-top: 20px; max-width: 350px;">La plateforme de recrutement d'élite qui transforme la façon dont les talents et les entreprises se rencontrent.</p>
+          <a href="#" class="logo" style="color: white; font-size: 24px; font-weight: 900;"><i>CHASSEUR DE TÊTE</i></a>
+          <p style="opacity: 0.6; margin-top: 24px; max-width: 400px; font-size: 15px; line-height: 1.8;">La plateforme de recrutement d'élite à Madagascar. Nous redéfinissons la mise en relation professionnelle pour un avenir plus brillant.</p>
+          <div class="flex gap-4" style="margin-top: 32px;">
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; cursor: pointer;">f</div>
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; cursor: pointer;">in</div>
+            <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; cursor: pointer;">x</div>
+          </div>
         </div>
         <div>
-          <h4 style="margin-bottom: 24px; font-size: 16px;">Plateforme</h4>
-          <ul style="list-style: none; padding: 0; display: grid; gap: 12px;">
-            <li><a href="offres.html" style="color: white; opacity: 0.6; text-decoration: none;">Toutes les offres</a></li>
-            <li><a href="login.html" style="color: white; opacity: 0.6; text-decoration: none;">Connexion</a></li>
-            <li><a href="register.html" style="color: white; opacity: 0.6; text-decoration: none;">Inscription</a></li>
+          <h4 style="margin-bottom: 32px; font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Plateforme</h4>
+          <ul style="list-style: none; padding: 0; display: grid; gap: 16px;">
+            <li><a href="offres.html" style="color: white; opacity: 0.6; text-decoration: none;">Opportunités</a></li>
+            <li><a href="login.html" style="color: white; opacity: 0.6; text-decoration: none;">Accès membre</a></li>
+            <li><a href="register.html" style="color: white; opacity: 0.6; text-decoration: none;">Devenir partenaire</a></li>
+            <li><a href="#features" style="color: white; opacity: 0.6; text-decoration: none;">Nos services</a></li>
           </ul>
         </div>
         <div>
-          <h4 style="margin-bottom: 24px; font-size: 16px;">Contact</h4>
-          <p style="opacity: 0.6;">Antsiranana, Madagascar</p>
-          <p style="opacity: 0.6; margin-top: 8px;">liva@chasseurdetete.mg</p>
+          <h4 style="margin-bottom: 32px; font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Contact</h4>
+          <p style="opacity: 0.6; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">📍 Antsiranana, Madagascar</p>
+          <p style="opacity: 0.6; display: flex; align-items: center; gap: 8px;">✉️ liva@chasseurdetete.mg</p>
+          <p style="opacity: 0.6; margin-top: 12px; display: flex; align-items: center; gap: 8px;">📞 +261 34 00 000 00</p>
         </div>
       </div>
-      <div style="margin-top: 80px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; font-size: 14px; opacity: 0.5;">
+      <div style="margin-top: 100px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; font-size: 14px; opacity: 0.5;">
         <span>© 2026 Chasseur de tête. Tous droits réservés.</span>
-        <div class="flex gap-6">
+        <div class="flex gap-8">
           <a href="#" style="color: white; text-decoration: none;">Confidentialité</a>
-          <a href="#" style="color: white; text-decoration: none;">Mentions légales</a>
+          <a href="#" style="color: white; text-decoration: none;">Conditions</a>
         </div>
       </div>
     </div>
